@@ -4,42 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>047Gang</title>
-
-    <!-- Подключаем шрифт -->
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
-
     <style>
         body {
             margin: 0;
             font-family: 'Great Vibes', cursive;
             color: white;
-            text-align: center;
             height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            background: url('images/bg-pc.jpg') no-repeat center center/cover;
+            align-items: center;
+            background: url('images/bg.jpg') no-repeat center center/cover;
             background-attachment: fixed;
-            background-size: cover;
-            animation: moveBg 30s linear infinite;
-        }
-
-        /* Плавное движение фона */
-        @keyframes moveBg {
-            0% { background-position: center center; }
-            50% { background-position: center top; }
-            100% { background-position: center center; }
         }
 
         h1 {
             font-size: 5em;
-            margin-top: 25vh;
+            margin-top: 80px; /* ниже, чем раньше */
             text-shadow: 2px 2px 8px black;
         }
 
+        .gif-container {
+            display: flex;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .gif-container video {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            animation: spin 6s linear infinite;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(255, 68, 68, 0.8), 0 0 40px rgba(255, 68, 68, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .gif-container video:hover {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.9), 0 0 60px rgba(255, 68, 68, 0.8);
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
         .bottom {
-            margin-bottom: 8vh;
-            font-size: 2em;
+            margin-bottom: 40px;
+            font-size: 1.5em;
             text-shadow: 2px 2px 6px black;
         }
 
@@ -47,43 +61,40 @@
             color: #ff4444;
             text-decoration: none;
             font-weight: bold;
-            transition: 0.3s;
         }
 
         .bottom a:hover {
             text-decoration: underline;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        h1, .bottom {
-            animation: fadeIn 2s ease-in-out forwards;
-        }
-
+        /* Адаптив для телефона */
         @media (max-width: 768px) {
-            body {
-                background: url('images/bg-phone.jpg') no-repeat center center/cover;
-                background-attachment: scroll;
-                animation: none;
+            h1 {
+                font-size: 3em;
+                margin-top: 60px;
             }
 
-            h1 {
-                font-size: 3.5em;
-                margin-top: 20vh;
+            .gif-container video {
+                width: 80px;
+                height: 80px;
             }
 
             .bottom {
-                font-size: 1.5em;
-                margin-bottom: 5vh;
+                font-size: 1.2em;
+                margin-bottom: 20px;
             }
         }
     </style>
 </head>
 <body>
     <h1>047Gang</h1>
+
+    <div class="gif-container">
+        <video src="images/video1.mp4" autoplay loop muted playsinline></video>
+        <video src="images/video2.mp4" autoplay loop muted playsinline></video>
+        <video src="images/video3.mp4" autoplay loop muted playsinline></video>
+    </div>
+
     <div class="bottom">
         <p>шмоточки — <a href="https://www.instagram.com/047markeliy/" target="_blank" rel="noopener noreferrer">Instagram</a></p>
     </div>
