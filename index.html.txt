@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>047Gang </title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>047Gang</title>
     <style>
         body {
             margin: 0;
@@ -18,36 +18,30 @@
             background-attachment: fixed;
         }
         h1 {
-            font-size: 4em;
+            font-size: 5em;
             margin: 0;
             text-shadow: 2px 2px 8px black;
         }
-        p {
+        .bottom {
+            margin-top: auto;
+            padding: 20px;
             font-size: 1.5em;
             text-shadow: 2px 2px 6px black;
         }
-        .social {
-            margin-top: 20px;
-        }
-        .social a {
-            color: white;
-            text-decoration: none;
-            margin: 0 10px;
-            font-size: 1.2em;
-            transition: 0.3s;
-        }
-        .social a:hover {
+        .bottom a {
             color: #ff4444;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .bottom a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <h1>047Gang </h1>
-    <p>рэп, стиль, панчи</p>
-    <div class="social">
-        <a href="https://youtube.com" target="_blank">YouTube</a>
-        <a href="https://instagram.com" target="_blank">Instagram</a>
-        <a href="https://t.me" target="_blank">Telegram</a>
+    <h1>047Gang</h1>
+    <div class="bottom">
+        <p>шмоточки — <a href="https://www.instagram.com/047markeliy/" target="_blank" rel="noopener noreferrer">Instagram</a></p>
     </div>
 </body>
 </html>
