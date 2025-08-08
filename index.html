@@ -16,8 +16,9 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between; /* равномерно распределяем сверху и снизу */
     background-attachment: fixed;
+    padding: 30px 10px; /* чтобы на телефоне текст не прилипал к краям */
   }
 
   @keyframes fadeIn {
@@ -28,14 +29,14 @@
   h1 {
     font-family: 'Great Vibes', cursive;
     font-size: 6em;
-    margin: 0;
+    margin-top: 120px; /* смещение вниз */
+    margin-bottom: 20px;
     text-shadow: 3px 3px 10px black;
     animation: fadeIn 2s ease-in-out forwards;
   }
 
   .bottom {
-    margin-top: auto;
-    padding: 20px;
+    margin-bottom: 60px; /* подняли чуть выше */
     font-size: 1.8em;
     text-shadow: 2px 2px 8px black;
     font-family: 'Great Vibes', cursive;
@@ -53,6 +54,18 @@
     text-decoration: underline;
     color: #ff0000;
     transform: scale(1.1);
+  }
+
+  /* Адаптив под телефон */
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 4em;
+      margin-top: 80px;
+    }
+    .bottom {
+      font-size: 1.4em;
+      margin-bottom: 40px;
+    }
   }
 </style>
 </head>
