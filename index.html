@@ -23,6 +23,12 @@
             background: var(--dark-bg) url('images/bg-pc.jpg') no-repeat center center/cover;
             background-attachment: fixed;
             overflow-x: hidden;
+            animation: moveBg 30s linear infinite;
+        }
+
+        @keyframes moveBg {
+            0%, 100% { background-position: center center; }
+            50% { background-position: center top; }
         }
 
         h1 {
@@ -33,40 +39,100 @@
             animation: pulse 2s infinite alternate;
         }
 
-        /* Секция контактов */
-        .contacts {
-            background: rgba(20, 20, 20, 0.8);
+        /* Стили для 3D-товаров (как в вашем оригинале) */
+        .products {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin: 5vh auto;
+            flex-wrap: wrap;
+        }
+
+        .product {
+            width: 250px;
+            transition: all 0.5s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .product img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 2px solid var(--main-color);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            transition: all 0.5s ease;
+        }
+
+        .product:hover img {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(138, 43, 226, 0.5);
+        }
+
+        .product-name {
+            margin-top: 15px;
+            font-size: 1.8em;
+            text-shadow: 1px 1px 3px black;
+        }
+
+        .product-price {
+            color: var(--main-color);
+            font-weight: bold;
+            font-size: 1.8em;
+            margin-top: 5px;
+            text-shadow: 0 0 8px rgba(138, 43, 226, 0.7);
+        }
+
+        /* Обратный отсчёт */
+        .countdown {
+            background: rgba(20, 20, 20, 0.7);
             border-radius: 15px;
-            padding: 2rem;
+            padding: 1rem;
             margin: 2rem auto;
             max-width: 600px;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(5px);
             border: 1px solid var(--main-color);
-            box-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
         }
 
-        .contact-item {
-            margin: 1.5rem 0;
+        .countdown-title {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--main-color);
+        }
+
+        .countdown-container {
             display: flex;
-            align-items: center;
             justify-content: center;
-            gap: 15px;
+            gap: 10px;
         }
 
-        .contact-icon {
-            width: 40px;
-            height: 40px;
-            background-size: contain;
-            background-repeat: no-repeat;
-            filter: drop-shadow(0 0 5px var(--main-color));
+        .countdown-box {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            padding: 0.5rem;
+            min-width: 70px;
         }
 
-        .instagram-icon {
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%238a2be2"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.919-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>');
+        .countdown-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--main-color);
         }
 
-        .telegram-icon {
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%238a2be2"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.14-.26.26-.534.26l.213-3.053 5.56-5.022c.24-.213-.054-.334-.373-.12l-6.87 4.326-2.96-.924c-.64-.203-.658-.64.136-.954l11.57-4.458c.538-.196 1.006.128.832.941z"/></svg>');
+        /* Контакты внизу (как вы любите) */
+        .bottom {
+            margin-top: auto;
+            margin-bottom: 3vh;
+            padding: 1.5rem;
+            background: rgba(10, 10, 10, 0.7);
+        }
+
+        .contacts {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
         }
 
         .contact-link {
@@ -74,60 +140,35 @@
             text-decoration: none;
             font-size: 1.2rem;
             transition: all 0.3s;
-            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .contact-link:hover {
             color: var(--main-color);
-            text-shadow: 0 0 10px var(--main-color);
+            transform: scale(1.05);
         }
 
-        .contact-link::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--main-color);
-            transition: width 0.3s;
-        }
-
-        .contact-link:hover::after {
-            width: 100%;
-        }
-
-        /* Анимация "Напиши мне" */
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            20% { transform: translateX(-5px); }
-            40% { transform: translateX(5px); }
-            60% { transform: translateX(-5px); }
-            80% { transform: translateX(5px); }
-        }
-
-        .support-text {
-            margin-top: 2rem;
-            font-size: 1.5rem;
-            animation: shake 2s infinite;
-            color: var(--main-color);
-            text-shadow: 0 0 5px black;
-        }
-
-        /* Медиа-запросы */
+        /* Адаптация */
         @media (max-width: 768px) {
             h1 {
                 font-size: 3rem;
             }
             
-            .contacts {
-                padding: 1.5rem;
-                margin: 1rem;
+            .products {
+                gap: 30px;
+                flex-direction: column;
+                align-items: center;
             }
             
-            .contact-item {
+            .product {
+                width: 80%;
+            }
+            
+            .contacts {
                 flex-direction: column;
-                text-align: center;
+                gap: 15px;
             }
         }
     </style>
@@ -135,47 +176,92 @@
 <body>
     <h1>047Gang</h1>
 
-    <!-- Секция контактов -->
-    <div class="contacts">
-        <div class="contact-item">
-            <div class="contact-icon instagram-icon"></div>
+    <!-- Обратный отсчёт -->
+    <div class="countdown">
+        <div class="countdown-title">ДО НОВОГО DROPУ ЗАЛИШИЛОСЬ:</div>
+        <div class="countdown-container" id="countdown">
+            <div class="countdown-box">
+                <div class="countdown-value" id="days">00</div>
+            </div>
+            <div class="countdown-box">
+                <div class="countdown-value" id="hours">00</div>
+            </div>
+            <div class="countdown-box">
+                <div class="countdown-value" id="minutes">00</div>
+            </div>
+            <div class="countdown-box">
+                <div class="countdown-value" id="seconds">00</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3D-товары по центру -->
+    <div class="products">
+        <div class="product">
+            <img src="images/item1.jpg" alt="Кофта 047Gang">
+            <div class="product-name">Кофта</div>
+            <div class="product-price">2599 грн</div>
+        </div>
+        
+        <div class="product">
+            <img src="images/item2.jpg" alt="Футболка 047Gang">
+            <div class="product-name">Футболка</div>
+            <div class="product-price">1399 грн</div>
+        </div>
+        
+        <div class="product">
+            <img src="images/item3.jpg" alt="Футболка 047Gang">
+            <div class="product-name">Футболка</div>
+            <div class="product-price">1399 грн</div>
+        </div>
+    </div>
+
+    <!-- Контакты внизу -->
+    <div class="bottom">
+        <div class="contacts">
             <a href="https://www.instagram.com/047markeliy/" class="contact-link" target="_blank">
-                @047markeliy
+                <span>Instagram:</span> @047markeliy
             </a>
-        </div>
-        
-        <div class="contact-item">
-            <div class="contact-icon telegram-icon"></div>
             <a href="https://t.me/markeliy047" class="contact-link" target="_blank">
-                @markeliy047
+                <span>Telegram (підтримка):</span> @markeliy047
             </a>
-        </div>
-        
-        <div class="support-text">
-            Напиши мені у Telegram - я твій персональний сапорт!
         </div>
     </div>
 
     <script>
-        // Анимация для текста поддержки
-        const supportText = document.querySelector('.support-text');
+        // Обратный отсчёт до 1 июня 2026
+        function updateCountdown() {
+            const dropDate = new Date('June 1, 2026 00:00:00').getTime();
+            const now = new Date().getTime();
+            const diff = dropDate - now;
+            
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        }
         
-        setInterval(() => {
-            supportText.style.animation = 'none';
-            void supportText.offsetWidth; // Trigger reflow
-            supportText.style.animation = 'shake 2s infinite';
-        }, 6000);
-        
-        // Случайное изменение цвета иконок
-        const icons = document.querySelectorAll('.contact-icon');
-        const colors = ['#8a2be2', '#ff00ff', '#00ffff', '#ff1493'];
-        
-        setInterval(() => {
-            icons.forEach(icon => {
-                const randomColor = colors[Math.floor(Math.random() * colors.length)];
-                icon.style.filter = `drop-shadow(0 0 8px ${randomColor})`;
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Анимация при наведении на товары
+        document.querySelectorAll('.product').forEach(item => {
+            item.addEventListener('mousemove', (e) => {
+                const x = e.clientX - item.getBoundingClientRect().left;
+                const y = e.clientY - item.getBoundingClientRect().top;
+                
+                item.style.transform = `perspective(1000px) rotateX(${(y - 125) / 20}deg) rotateY(${(x - 125) / -20}deg)`;
             });
-        }, 3000);
+            
+            item.addEventListener('mouseleave', () => {
+                item.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+            });
+        });
     </script>
 </body>
 </html>
