@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>047Gang | DROP 1.06.2026</title>
+    <title>047Gang | Офіційний сайт</title>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --main-color: #8a2be2;
             --dark-bg: #0a0a0a;
-            --shadow: 0 0 20px rgba(138, 43, 226, 0.7);
-            --neon-effect: 0 0 10px var(--main-color), 0 0 20px var(--main-color);
+            --neon-effect: 0 0 10px #8a2be2, 0 0 20px #8a2be2;
         }
         
         body {
@@ -34,125 +33,101 @@
             animation: pulse 2s infinite alternate;
         }
 
-        @keyframes pulse {
-            0% { text-shadow: 0 0 10px var(--main-color); }
-            100% { text-shadow: 0 0 20px var(--main-color), 0 0 30px #fff; }
-        }
-
-        /* Обратный отсчет */
-        .countdown {
-            background: rgba(20, 20, 20, 0.7);
+        /* Секция контактов */
+        .contacts {
+            background: rgba(20, 20, 20, 0.8);
             border-radius: 15px;
             padding: 2rem;
             margin: 2rem auto;
-            max-width: 800px;
+            max-width: 600px;
             backdrop-filter: blur(10px);
             border: 1px solid var(--main-color);
-            box-shadow: var(--shadow);
+            box-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
         }
 
-        .countdown-title {
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            color: var(--main-color);
-        }
-
-        .countdown-container {
+        .contact-item {
+            margin: 1.5rem 0;
             display: flex;
+            align-items: center;
             justify-content: center;
-            gap: 1rem;
+            gap: 15px;
         }
 
-        .countdown-box {
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 10px;
-            padding: 1rem;
-            min-width: 100px;
-            border: 1px solid var(--main-color);
-            box-shadow: 0 0 15px rgba(138, 43, 226, 0.5);
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            filter: drop-shadow(0 0 5px var(--main-color));
         }
 
-        .countdown-value {
-            font-size: 3rem;
-            font-weight: bold;
+        .instagram-icon {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%238a2be2"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.919-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>');
+        }
+
+        .telegram-icon {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%238a2be2"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.14-.26.26-.534.26l.213-3.053 5.56-5.022c.24-.213-.054-.334-.373-.12l-6.87 4.326-2.96-.924c-.64-.203-.658-.64.136-.954l11.57-4.458c.538-.196 1.006.128.832.941z"/></svg>');
+        }
+
+        .contact-link {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .contact-link:hover {
             color: var(--main-color);
             text-shadow: 0 0 10px var(--main-color);
         }
 
-        .countdown-label {
-            font-size: 1rem;
-            opacity: 0.8;
+        .contact-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--main-color);
+            transition: width 0.3s;
         }
 
-        /* Новый визуальный элемент - бегущая строка */
-        .marquee {
-            background: linear-gradient(90deg, transparent, var(--main-color), transparent);
-            padding: 1rem;
-            margin: 2rem 0;
-            white-space: nowrap;
-            overflow: hidden;
-            position: relative;
+        .contact-link:hover::after {
+            width: 100%;
         }
 
-        .marquee-content {
-            display: inline-block;
-            animation: marquee 20s linear infinite;
-            font-size: 1.2rem;
+        /* Анимация "Напиши мне" */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-5px); }
+            40% { transform: translateX(5px); }
+            60% { transform: translateX(-5px); }
+            80% { transform: translateX(5px); }
+        }
+
+        .support-text {
+            margin-top: 2rem;
+            font-size: 1.5rem;
+            animation: shake 2s infinite;
+            color: var(--main-color);
             text-shadow: 0 0 5px black;
         }
 
-        @keyframes marquee {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
-
-        /* Эффект параллакса */
-        .parallax-section {
-            height: 300px;
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            position: relative;
-            margin: 3rem 0;
-        }
-
-        .parallax-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .parallax-text {
-            font-size: 2rem;
-            max-width: 800px;
-            padding: 1rem;
-            text-shadow: 0 0 10px black;
-        }
-
-        /* Адаптация */
+        /* Медиа-запросы */
         @media (max-width: 768px) {
             h1 {
                 font-size: 3rem;
             }
             
-            .countdown-box {
-                min-width: 70px;
+            .contacts {
+                padding: 1.5rem;
+                margin: 1rem;
             }
             
-            .countdown-value {
-                font-size: 2rem;
-            }
-            
-            .parallax-section {
-                height: 200px;
-                background-attachment: scroll;
+            .contact-item {
+                flex-direction: column;
+                text-align: center;
             }
         }
     </style>
@@ -160,93 +135,47 @@
 <body>
     <h1>047Gang</h1>
 
-    <!-- Обратный отсчет -->
-    <div class="countdown">
-        <div class="countdown-title">ДО DROP 1 ЧЕРВНЯ 2026</div>
-        <div class="countdown-container" id="countdown">
-            <div class="countdown-box">
-                <div class="countdown-value" id="days">00</div>
-                <div class="countdown-label">ДНІВ</div>
-            </div>
-            <div class="countdown-box">
-                <div class="countdown-value" id="hours">00</div>
-                <div class="countdown-label">ГОДИН</div>
-            </div>
-            <div class="countdown-box">
-                <div class="countdown-value" id="minutes">00</div>
-                <div class="countdown-label">ХВИЛИН</div>
-            </div>
-            <div class="countdown-box">
-                <div class="countdown-value" id="seconds">00</div>
-                <div class="countdown-label">СЕКУНД</div>
-            </div>
+    <!-- Секция контактов -->
+    <div class="contacts">
+        <div class="contact-item">
+            <div class="contact-icon instagram-icon"></div>
+            <a href="https://www.instagram.com/047markeliy/" class="contact-link" target="_blank">
+                @047markeliy
+            </a>
         </div>
-    </div>
-
-    <!-- Бегущая строка -->
-    <div class="marquee">
-        <div class="marquee-content">
-            ✦ НОВА КОЛЕКЦІЯ ВЖЕ СКОРО ✦ 1 ЧЕРВНЯ 2026 ✦ ПІДПИШИСЬ В INSTAGRAM ЩОБ НЕ ПРОПУСТИТИ ✦
+        
+        <div class="contact-item">
+            <div class="contact-icon telegram-icon"></div>
+            <a href="https://t.me/markeliy047" class="contact-link" target="_blank">
+                @markeliy047
+            </a>
         </div>
-    </div>
-
-    <!-- Секция с параллакс эффектом -->
-    <div class="parallax-section" style="background-image: url('images/parallax-bg.jpg');">
-        <div class="parallax-overlay">
-            <div class="parallax-text">
-                "СТИЛЬ - ЦЕ МОВА. НОСИ СВОЄ"
-            </div>
+        
+        <div class="support-text">
+            Напиши мені у Telegram - я твій персональний сапорт!
         </div>
     </div>
 
     <script>
-        // Обратный отсчет до 1 июня 2026
-        function updateCountdown() {
-            const dropDate = new Date('June 1, 2026 00:00:00').getTime();
-            const now = new Date().getTime();
-            const diff = dropDate - now;
-            
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-            
-            document.getElementById('days').textContent = days.toString().padStart(2, '0');
-            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
-            
-            // Анимация при изменении секунд
-            if(seconds % 5 === 0) {
-                document.getElementById('seconds').style.transform = 'scale(1.2)';
-                setTimeout(() => {
-                    document.getElementById('seconds').style.transform = 'scale(1)';
-                }, 300);
-            }
-        }
+        // Анимация для текста поддержки
+        const supportText = document.querySelector('.support-text');
         
-        setInterval(updateCountdown, 1000);
-        updateCountdown();
+        setInterval(() => {
+            supportText.style.animation = 'none';
+            void supportText.offsetWidth; // Trigger reflow
+            supportText.style.animation = 'shake 2s infinite';
+        }, 6000);
         
-        // Эффект параллакса
-        window.addEventListener('scroll', function() {
-            const parallax = document.querySelector('.parallax-section');
-            const scrollPosition = window.pageYOffset;
-            parallax.style.backgroundPositionY = scrollPosition * 0.5 + 'px';
-        });
+        // Случайное изменение цвета иконок
+        const icons = document.querySelectorAll('.contact-icon');
+        const colors = ['#8a2be2', '#ff00ff', '#00ffff', '#ff1493'];
         
-        // Случайное мерцание элементов
-        function randomGlow() {
-            const boxes = document.querySelectorAll('.countdown-box');
-            const randomBox = boxes[Math.floor(Math.random() * boxes.length)];
-            
-            randomBox.style.boxShadow = '0 0 25px rgba(138, 43, 226, 0.8)';
-            setTimeout(() => {
-                randomBox.style.boxShadow = '0 0 15px rgba(138, 43, 226, 0.5)';
-            }, 300);
-        }
-        
-        setInterval(randomGlow, 2000);
+        setInterval(() => {
+            icons.forEach(icon => {
+                const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                icon.style.filter = `drop-shadow(0 0 8px ${randomColor})`;
+            });
+        }, 3000);
     </script>
 </body>
 </html>
