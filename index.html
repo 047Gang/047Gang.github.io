@@ -3,18 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>047Gang | Оригінальний стритстайл</title>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <title>047Gang | DROP 1.06.2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --main-color: #8a2be2; /* Темно-фіолетовий */
+            --main-color: #8a2be2;
             --dark-bg: #0a0a0a;
-            --shadow: 0 0 15px rgba(138, 43, 226, 0.7);
+            --shadow: 0 0 20px rgba(138, 43, 226, 0.7);
+            --neon-effect: 0 0 10px var(--main-color), 0 0 20px var(--main-color);
         }
         
         body {
             margin: 0;
-            font-family: 'Great Vibes', cursive;
+            font-family: 'Montserrat', sans-serif;
             color: white;
             text-align: center;
             min-height: 100vh;
@@ -22,312 +23,230 @@
             flex-direction: column;
             background: var(--dark-bg) url('images/bg-pc.jpg') no-repeat center center/cover;
             background-attachment: fixed;
-            animation: moveBg 30s linear infinite;
             overflow-x: hidden;
         }
 
-        /* Анімація фону */
-        @keyframes moveBg {
-            0%, 100% { background-position: center center; }
-            50% { background-position: center top; }
-        }
-
-        /* Анімація заголовка */
         h1 {
-            font-size: 5em;
-            margin-top: 5vh;
-            text-shadow: 0 0 10px var(--main-color), 2px 2px 8px black;
-            animation: glow 3s ease-in-out infinite alternate;
+            font-family: 'Great Vibes', cursive;
+            font-size: 5rem;
+            margin: 2rem 0;
+            text-shadow: var(--neon-effect);
+            animation: pulse 2s infinite alternate;
         }
 
-        @keyframes glow {
-            from { text-shadow: 0 0 5px var(--main-color), 2px 2px 8px black; }
-            to { text-shadow: 0 0 15px var(--main-color), 2px 2px 12px black; }
+        @keyframes pulse {
+            0% { text-shadow: 0 0 10px var(--main-color); }
+            100% { text-shadow: 0 0 20px var(--main-color), 0 0 30px #fff; }
         }
 
-        /* Стилі для товарів */
-        .products {
-            display: flex;
-            justify-content: center;
-            gap: 50px;
-            margin: 5vh auto;
-            flex-wrap: wrap;
-        }
-
-        .product {
-            width: 250px;
-            transition: all 0.5s ease;
-            position: relative;
-            z-index: 1;
-        }
-
-        .product::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(138, 43, 226, 0.1);
-            border-radius: 10px;
-            z-index: -1;
-            transform: scale(0.95);
-            transition: all 0.5s ease;
-        }
-
-        .product:hover::before {
-            transform: scale(1);
+        /* Обратный отсчет */
+        .countdown {
+            background: rgba(20, 20, 20, 0.7);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 800px;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--main-color);
             box-shadow: var(--shadow);
         }
 
-        .product img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
+        .countdown-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--main-color);
+        }
+
+        .countdown-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .countdown-box {
+            background: rgba(0, 0, 0, 0.5);
             border-radius: 10px;
-            border: 2px solid var(--main-color);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-            transition: all 0.5s ease;
+            padding: 1rem;
+            min-width: 100px;
+            border: 1px solid var(--main-color);
+            box-shadow: 0 0 15px rgba(138, 43, 226, 0.5);
         }
 
-        .product:hover img {
-            transform: scale(1.05);
-            box-shadow: 0 10px 25px rgba(138, 43, 226, 0.5);
-        }
-
-        .product-name {
-            margin-top: 15px;
-            font-size: 1.8em;
-            text-shadow: 1px 1px 3px black;
-            animation: fadeIn 1s ease-out;
-        }
-
-        .product-price {
-            color: var(--main-color);
+        .countdown-value {
+            font-size: 3rem;
             font-weight: bold;
-            font-size: 1.8em;
-            margin-top: 5px;
-            text-shadow: 0 0 8px rgba(138, 43, 226, 0.7);
+            color: var(--main-color);
+            text-shadow: 0 0 10px var(--main-color);
         }
 
-        /* Кнопка */
-        .cta-button {
-            display: inline-block;
-            padding: 12px 40px;
-            background: linear-gradient(135deg, var(--main-color), #6a0dad);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-size: 1.3em;
-            margin: 20px 0;
-            transition: all 0.5s ease;
-            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.5);
-            position: relative;
+        .countdown-label {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        /* Новый визуальный элемент - бегущая строка */
+        .marquee {
+            background: linear-gradient(90deg, transparent, var(--main-color), transparent);
+            padding: 1rem;
+            margin: 2rem 0;
+            white-space: nowrap;
             overflow: hidden;
-        }
-
-        .cta-button::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                to bottom right,
-                transparent,
-                rgba(255, 255, 255, 0.2),
-                transparent
-            );
-            transform: rotate(30deg);
-            transition: all 0.7s ease;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(138, 43, 226, 0.8);
-        }
-
-        .cta-button:hover::before {
-            left: 100%;
-        }
-
-        /* Футер */
-        .bottom {
-            margin-bottom: 5vh;
-            font-size: 2em;
-            text-shadow: 2px 2px 6px black;
-            animation: slideUp 1s ease-out;
-        }
-
-        .bottom a {
-            color: var(--main-color);
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s;
             position: relative;
         }
 
-        .bottom a::after {
-            content: '';
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 20s linear infinite;
+            font-size: 1.2rem;
+            text-shadow: 0 0 5px black;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* Эффект параллакса */
+        .parallax-section {
+            height: 300px;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+            margin: 3rem 0;
+        }
+
+        .parallax-overlay {
             position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--main-color);
-            transition: width 0.3s ease;
-        }
-
-        .bottom a:hover::after {
-            width: 100%;
-        }
-
-        /* Анімації */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Плаваючі частинки */
-        .particles {
-            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
-            overflow: hidden;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .particle {
-            position: absolute;
-            background: rgba(138, 43, 226, 0.3);
-            border-radius: 50%;
-            animation: float linear infinite;
+        .parallax-text {
+            font-size: 2rem;
+            max-width: 800px;
+            padding: 1rem;
+            text-shadow: 0 0 10px black;
         }
 
-        @keyframes float {
-            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
-        }
-
-        /* Адаптація */
+        /* Адаптация */
         @media (max-width: 768px) {
-            body {
-                background: var(--dark-bg) url('images/bg-phone.jpg') no-repeat center center/cover;
-                animation: none;
-            }
-
             h1 {
-                font-size: 3em;
+                font-size: 3rem;
             }
-
-            .products {
-                gap: 30px;
-                flex-direction: column;
-                align-items: center;
+            
+            .countdown-box {
+                min-width: 70px;
             }
-
-            .product {
-                width: 80%;
+            
+            .countdown-value {
+                font-size: 2rem;
+            }
+            
+            .parallax-section {
+                height: 200px;
+                background-attachment: scroll;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Плаваючі частинки -->
-    <div class="particles" id="particles"></div>
-
     <h1>047Gang</h1>
 
-    <!-- Товари -->
-    <div class="products">
-        <!-- Кофта -->
-        <div class="product">
-            <img src="images/item1.jpg" alt="Кофта 047Gang">
-            <div class="product-name">Кофта</div>
-            <div class="product-price">2599 грн</div>
-        </div>
-        
-        <!-- Футболка -->
-        <div class="product">
-            <img src="images/item2.jpg" alt="Футболка 047Gang">
-            <div class="product-name">Футболка</div>
-            <div class="product-price">1399 грн</div>
-        </div>
-        
-        <!-- Штани -->
-        <div class="product">
-            <img src="images/item3.jpg" alt="Штани 047Gang">
-            <div class="product-name">Штани</div>
-            <div class="product-price">1399 грн</div>
+    <!-- Обратный отсчет -->
+    <div class="countdown">
+        <div class="countdown-title">ДО DROP 1 ЧЕРВНЯ 2026</div>
+        <div class="countdown-container" id="countdown">
+            <div class="countdown-box">
+                <div class="countdown-value" id="days">00</div>
+                <div class="countdown-label">ДНІВ</div>
+            </div>
+            <div class="countdown-box">
+                <div class="countdown-value" id="hours">00</div>
+                <div class="countdown-label">ГОДИН</div>
+            </div>
+            <div class="countdown-box">
+                <div class="countdown-value" id="minutes">00</div>
+                <div class="countdown-label">ХВИЛИН</div>
+            </div>
+            <div class="countdown-box">
+                <div class="countdown-value" id="seconds">00</div>
+                <div class="countdown-label">СЕКУНД</div>
+            </div>
         </div>
     </div>
 
-    <!-- Кнопка -->
-    <a href="https://www.instagram.com/047markeliy/" class="cta-button">Замовити</a>
+    <!-- Бегущая строка -->
+    <div class="marquee">
+        <div class="marquee-content">
+            ✦ НОВА КОЛЕКЦІЯ ВЖЕ СКОРО ✦ 1 ЧЕРВНЯ 2026 ✦ ПІДПИШИСЬ В INSTAGRAM ЩОБ НЕ ПРОПУСТИТИ ✦
+        </div>
+    </div>
 
-    <div class="bottom">
-        <p>шмотки — <a href="https://www.instagram.com/047markeliy/" target="_blank" rel="noopener noreferrer">Instagram</a></p>
+    <!-- Секция с параллакс эффектом -->
+    <div class="parallax-section" style="background-image: url('images/parallax-bg.jpg');">
+        <div class="parallax-overlay">
+            <div class="parallax-text">
+                "СТИЛЬ - ЦЕ МОВА. НОСИ СВОЄ"
+            </div>
+        </div>
     </div>
 
     <script>
-        // Генератор плаваючих частинок
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const particleCount = 20;
+        // Обратный отсчет до 1 июня 2026
+        function updateCountdown() {
+            const dropDate = new Date('June 1, 2026 00:00:00').getTime();
+            const now = new Date().getTime();
+            const diff = dropDate - now;
             
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
-                
-                // Випадкові параметри
-                const size = Math.random() * 10 + 5;
-                const posX = Math.random() * window.innerWidth;
-                const duration = Math.random() * 20 + 10;
-                const delay = Math.random() * 5;
-                
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                particle.style.left = `${posX}px`;
-                particle.style.bottom = `-${size}px`;
-                particle.style.animationDuration = `${duration}s`;
-                particle.style.animationDelay = `${delay}s`;
-                
-                particlesContainer.appendChild(particle);
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+            
+            // Анимация при изменении секунд
+            if(seconds % 5 === 0) {
+                document.getElementById('seconds').style.transform = 'scale(1.2)';
+                setTimeout(() => {
+                    document.getElementById('seconds').style.transform = 'scale(1)';
+                }, 300);
             }
         }
         
-        // Запуск при завантаженні сторінки
-        window.addEventListener('load', createParticles);
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
         
-        // Реакція на рух миші
-        document.addEventListener('mousemove', (e) => {
-            const products = document.querySelectorAll('.product');
-            const mouseX = e.clientX / window.innerWidth;
-            const mouseY = e.clientY / window.innerHeight;
-            
-            products.forEach((product, index) => {
-                const offsetX = (mouseX - 0.5) * 20;
-                const offsetY = (mouseY - 0.5) * 20;
-                const delay = index * 0.1;
-                
-                product.style.transform = `
-                    translate(${offsetX}px, ${offsetY}px)
-                    rotateX(${-offsetY}deg)
-                    rotateY(${offsetX}deg)
-                `;
-                product.style.transition = `transform 0.5s ${delay}s ease-out`;
-            });
+        // Эффект параллакса
+        window.addEventListener('scroll', function() {
+            const parallax = document.querySelector('.parallax-section');
+            const scrollPosition = window.pageYOffset;
+            parallax.style.backgroundPositionY = scrollPosition * 0.5 + 'px';
         });
+        
+        // Случайное мерцание элементов
+        function randomGlow() {
+            const boxes = document.querySelectorAll('.countdown-box');
+            const randomBox = boxes[Math.floor(Math.random() * boxes.length)];
+            
+            randomBox.style.boxShadow = '0 0 25px rgba(138, 43, 226, 0.8)';
+            setTimeout(() => {
+                randomBox.style.boxShadow = '0 0 15px rgba(138, 43, 226, 0.5)';
+            }, 300);
+        }
+        
+        setInterval(randomGlow, 2000);
     </script>
 </body>
 </html>
