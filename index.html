@@ -514,51 +514,81 @@
         });
     </script>
 </body>
-<!-- Колонка доставки -->
-<div class="delivery-sidebar">
-    <h2>Доставка</h2>
-    <p>Ми здійснюємо доставку в усі міста України, включаючи:</p>
-    <ul>
-        <li>Київ</li>
-        <li>Одеса</li>
-        <li>Львів</li>
-        <li>Харків</li>
-        <li>Дніпро</li>
-        <li>Запоріжжя</li>
-        <li>та інші населені пункти</li>
-    </ul>
-    <p>Також доступна доставка по всій Європі.</p>
-</div>
+
+<body>
+  <!-- Другие секции -->
+
+  <!-- Вставь сюда FAQ -->
+  <section class="faq">...</section>
+<!-- В тело документа: вставь этот блок там, где нужен FAQ -->
+<section class="faq">
+  <h2>Часті питання</h2>
+  <div class="faq-item">
+    <button class="faq-question">Як оформити замовлення?</button>
+    <div class="faq-answer">
+      <p>Ви можете вибрати товар і замовити через Instagram або Telegram за допомогою модального вікна.</p>
+    </div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-question">Які способи оплати?</button>
+    <div class="faq-answer">
+      <p>Оплата на карту або післяплата при отриманні.</p>
+    </div>
+  </div>
+  <!-- Добавь еще вопросы сюда -->
+</section>
 
 <style>
-.delivery-sidebar {
-    position: fixed;
-    top: 100px;
-    right: 0;
-    width: 250px;
-    background: #111;
+  .faq {
+    max-width: 600px;
+    margin: 3rem auto;
+    text-align: left;
     color: white;
-    padding: 20px;
-    border-left: 2px solid #444; /* обводка слева */
-    box-shadow: -4px 0 15px rgba(0,0,0,0.5); /* объёмная тень */
-    font-size: 14px;
-    z-index: 1000;
-    border-radius: 8px 0 0 8px; /* скруглённый угол слева */
-}
-.delivery-sidebar h2 {
-    font-size: 20px;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #444;
-    padding-bottom: 5px;
-}
-.delivery-sidebar ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-.delivery-sidebar ul li {
-    margin: 4px 0;
-}
+  }
+
+  .faq-item {
+    margin-bottom: 1rem;
+    border: 1px solid var(--main-color);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .faq-question {
+    width: 100%;
+    background: var(--dark-bg);
+    color: var(--main-color);
+    padding: 1rem;
+    font-size: 1.2rem;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    background: #111;
+    padding: 0 1rem;
+    color: #ccc;
+  }
+
+  .faq-answer.open {
+    max-height: 150px; /* фиксированная высота для анимации */
+    padding: 1rem;
+  }
 </style>
+
+<script>
+  document.querySelectorAll('.faq-question').forEach(button => {
+    button.addEventListener('click', () => {
+      const answer = button.nextElementSibling;
+      answer.classList.toggle('open');
+    });
+  });
+</script>
+
+  <!-- Другие секции -->
+</body>
 
 </html>
