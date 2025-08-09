@@ -513,82 +513,56 @@
             }
         });
     </script>
-</body>
-
 <body>
-  <!-- Другие секции -->
-
-  <!-- Вставь сюда FAQ -->
-  <section class="faq">...</section>
-<!-- В тело документа: вставь этот блок там, где нужен FAQ -->
-<section class="faq">
-  <h2>Часті питання</h2>
-  <div class="faq-item">
-    <button class="faq-question">Як оформити замовлення?</button>
-    <div class="faq-answer">
-      <p>Ви можете вибрати товар і замовити через Instagram або Telegram за допомогою модального вікна.</p>
+  <!-- твой контент сверху -->
+  
+  <!-- Падающие блики -->
+  <div class="glitter" id="glitter"></div>
+  
+  <h1>047Gang</h1>
+  
+  <!-- Обратный отсчет -->
+  <div class="countdown">...</div>
+  
+  <!-- Товары -->
+  <div class="products">...</div>
+  
+  <!-- FAQ -->
+  <section class="faq">
+    <h2>Часті питання</h2>
+    <div class="faq-item">
+      <button class="faq-question">Як оформити замовлення?</button>
+      <div class="faq-answer">
+        <p>Ви можете вибрати товар і замовити через Instagram або Telegram за допомогою модального вікна.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question">Які способи оплати?</button>
+      <div class="faq-answer">
+        <p>Оплата на карту або післяплата при отриманні.</p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Контакты -->
+  <div class="bottom">
+    <div class="contacts">
+      <a href="https://www.instagram.com/047markeliy/" class="contact-link" target="_blank">
+        <span>Instagram:</span> @047markeliy
+      </a>
+      <a href="https://t.me/markeliy047" class="contact-link" target="_blank">
+        <span>Telegram:</span> @markeliy047
+      </a>
     </div>
   </div>
-  <div class="faq-item">
-    <button class="faq-question">Які способи оплати?</button>
-    <div class="faq-answer">
-      <p>Оплата на карту або післяплата при отриманні.</p>
-    </div>
-  </div>
-  <!-- Добавь еще вопросы сюда -->
-</section>
-
-<style>
-  .faq {
-    max-width: 600px;
-    margin: 3rem auto;
-    text-align: left;
-    color: white;
-  }
-
-  .faq-item {
-    margin-bottom: 1rem;
-    border: 1px solid var(--main-color);
-    border-radius: 8px;
-    overflow: hidden;
-  }
-
-  .faq-question {
-    width: 100%;
-    background: var(--dark-bg);
-    color: var(--main-color);
-    padding: 1rem;
-    font-size: 1.2rem;
-    border: none;
-    text-align: left;
-    cursor: pointer;
-  }
-
-  .faq-answer {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
-    background: #111;
-    padding: 0 1rem;
-    color: #ccc;
-  }
-
-  .faq-answer.open {
-    max-height: 150px; /* фиксированная высота для анимации */
-    padding: 1rem;
-  }
-</style>
-
-<script>
-  document.querySelectorAll('.faq-question').forEach(button => {
-    button.addEventListener('click', () => {
-      const answer = button.nextElementSibling;
-      answer.classList.toggle('open');
-    });
-  });
-</script>
-
-  <!-- Другие секции -->
+  
+  <!-- Модальное окно -->
+  <div class="modal" id="orderModal">...</div>
+  
+  <!-- Toast -->
+  <div id="toast"></div>
+  
+  <script>/* твой js */</script>
 </body>
 
 </html>
