@@ -100,6 +100,7 @@
             transition: all 0.5s ease;
             position: relative;
             z-index: 1;
+            cursor: pointer;
         }
 
         .product img {
@@ -197,6 +198,73 @@
             transform: scale(1.05);
         }
 
+        /* Модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.75);
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 200ms ease;
+        }
+        .modal.show {
+            display: flex;
+            opacity: 1;
+        }
+        .modal-content {
+            background: #0e0e0e;
+            padding: 22px;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid var(--main-color);
+            box-shadow: 0 8px 30px rgba(138,43,226,0.15);
+            transform: translateY(-10px);
+        }
+        .modal h2 {
+            margin-bottom: 14px;
+            font-size: 1.2rem;
+            color: white;
+        }
+        .modal .btn-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 10px; }
+        .modal button {
+            background: var(--main-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 6px;
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        .modal .close-btn {
+            background: transparent;
+            border: 1px solid #444;
+            color: #ddd;
+        }
+
+        /* Toast */
+        #toast {
+            position: fixed;
+            left: 50%;
+            bottom: 40px;
+            transform: translateX(-50%);
+            background: rgba(20,20,20,0.95);
+            color: #fff;
+            padding: 10px 16px;
+            border-radius: 10px;
+            border: 1px solid rgba(138,43,226,0.6);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+            z-index: 2000;
+            display: none;
+            font-size: 0.95rem;
+        }
+
         /* Адаптация */
         @media (max-width: 768px) {
             body {
@@ -252,19 +320,19 @@
 
     <!-- 3D-товары по центру -->
     <div class="products">
-        <div class="product">
+        <div class="product" onclick="showOrderModal('кофту')">
             <img src="images/item1.jpg" alt="Кофта 047Gang">
             <div class="product-name">Кофта</div>
             <div class="product-price">2599 грн</div>
         </div>
         
-        <div class="product">
+        <div class="product" onclick="showOrderModal('футболку')">
             <img src="images/item2.jpg" alt="Футболка 047Gang">
             <div class="product-name">Футболка</div>
             <div class="product-price">1399 грн</div>
         </div>
         
-        <div class="product">
+        <div class="product" onclick="showOrderModal('футболку')">
             <img src="images/item3.jpg" alt="Футболка 047Gang">
             <div class="product-name">Футболка</div>
             <div class="product-price">1399 грн</div>
@@ -283,8 +351,86 @@
         </div>
     </div>
 
+    <!-- Модальное окно выбора -->
+    <div class="modal" id="orderModal" role="dialog" aria-hidden="true" aria-labelledby="orderTitle">
+        <div class="modal-content" role="document">
+            <h2 id="orderTitle">Куди написати?</h2>
+            <div class="btn-row">
+                <button id="instagramBtn" type="button">Instagram (скопіювати повідомлення)</button>
+                <button id="telegramBtn" type="button">Telegram</button>
+            </div>
+            <div>
+                <button class="close-btn" onclick="closeModal()">Закрити</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast"></div>
+
     <script>
-        // Падающие блики
+        // ---- Логика модалки и отправки ----
+        let selectedItem = '';
+
+        function showOrderModal(itemLowercase) {
+            // itemLowercase — 'кофту' / 'футболку'
+            selectedItem = itemLowercase;
+            const modal = document.getElementById('orderModal');
+            modal.classList.add('show');
+            modal.setAttribute('aria-hidden', 'false');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('orderModal');
+            modal.classList.remove('show');
+            modal.setAttribute('aria-hidden', 'true');
+        }
+
+        function showToast(text, ms = 2200) {
+            const toast = document.getElementById('toast');
+            toast.textContent = text;
+            toast.style.display = 'block';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, ms);
+        }
+
+        document.getElementById('instagramBtn').addEventListener('click', async () => {
+            const message = `Привіт! Хочу замовити у тебе ${selectedItem}.`;
+            // Копируем в буфер и открываем профиль IG (на вебе авто-DM с текстом часто не працює),
+            // поэтому пользователь сам вставит сообщение в DM — это надёжно.
+            try {
+                if (navigator.clipboard && window.isSecureContext) {
+                    await navigator.clipboard.writeText(message);
+                    showToast('Повідомлення скопійовано у буфер обміну. Відкривається Instagram...');
+                } else {
+                    // fallback
+                    const ta = document.createElement('textarea');
+                    ta.value = message;
+                    document.body.appendChild(ta);
+                    ta.focus();
+                    ta.select();
+                    try { document.execCommand('copy'); showToast('Повідомлення скопійовано у буфер обміну. Відкривається Instagram...'); }
+                    catch (e) { showToast('Не вдалось скопіювати. Скопіюй вручну.'); }
+                    ta.remove();
+                }
+            } catch (err) {
+                showToast('Не вдалось скопіювати в буфер.');
+            }
+
+            // Откроем профиль в новой вкладке — юзер вставит скопійований текст в DM.
+            window.open('https://www.instagram.com/047markeliy/', '_blank');
+            closeModal();
+        });
+
+        document.getElementById('telegramBtn').addEventListener('click', () => {
+            const message = encodeURIComponent(`Привіт! Хочу замовити у тебе ${selectedItem}.`);
+            // Открываем ссылку Telegram с текстом (работает в большинстве случаев)
+            window.open(`https://t.me/markeliy047?text=${message}`, '_blank');
+            closeModal();
+        });
+
+        // ---- Падающие блики ----
         function createGlitter() {
             const glitter = document.getElementById('glitter');
             const count = 50;
@@ -311,16 +457,16 @@
             }
         }
 
-        // Обратный отсчет
+        // ---- Обратный отсчет ----
         function updateCountdown() {
             const dropDate = new Date('June 1, 2026 00:00:00').getTime();
             const now = new Date().getTime();
             const diff = dropDate - now;
             
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            const days = Math.max(0, Math.floor(diff / (1000 * 60 * 60 * 24)));
+            const hours = Math.max(0, Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
+            const minutes = Math.max(0, Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)));
+            const seconds = Math.max(0, Math.floor((diff % (1000 * 60)) / 1000));
             
             document.getElementById('days').textContent = days.toString().padStart(2, '0');
             document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
@@ -328,7 +474,7 @@
             document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
         }
 
-        // 3D-эффект для товаров
+        // ---- 3D-эффект для товаров ----
         function initProductHover() {
             document.querySelectorAll('.product').forEach(item => {
                 item.addEventListener('mousemove', (e) => {
@@ -344,12 +490,27 @@
             });
         }
 
-        // Инициализация
+        // ---- Инициализация ----
         window.addEventListener('load', () => {
             createGlitter();
             updateCountdown();
             initProductHover();
             setInterval(updateCountdown, 1000);
+        });
+
+        // Закрытие модалки по клику вне содержимого
+        window.addEventListener('click', (e) => {
+            const modal = document.getElementById('orderModal');
+            if (modal.classList.contains('show') && e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Закрытие модалки по Esc
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
         });
     </script>
 </body>
