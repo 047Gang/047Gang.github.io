@@ -3,33 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>047Gang</title>
+    <title>047Gang | Оригінальний стритстайл</title>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --main-color: #8a2be2; /* Темно-фіолетовий */
+            --dark-bg: #0a0a0a;
+            --shadow: 0 0 15px rgba(138, 43, 226, 0.7);
+        }
+        
         body {
             margin: 0;
             font-family: 'Great Vibes', cursive;
             color: white;
             text-align: center;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            background: #111 url('images/bg-pc.jpg') no-repeat center center/cover;
+            background: var(--dark-bg) url('images/bg-pc.jpg') no-repeat center center/cover;
             background-attachment: fixed;
             animation: moveBg 30s linear infinite;
+            overflow-x: hidden;
         }
 
+        /* Анімація фону */
         @keyframes moveBg {
-            0% { background-position: center center; }
+            0%, 100% { background-position: center center; }
             50% { background-position: center top; }
-            100% { background-position: center center; }
         }
 
+        /* Анімація заголовка */
         h1 {
             font-size: 5em;
-            margin-top: 10vh;
-            text-shadow: 2px 2px 8px black;
+            margin-top: 5vh;
+            text-shadow: 0 0 10px var(--main-color), 2px 2px 8px black;
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 5px var(--main-color), 2px 2px 8px black; }
+            to { text-shadow: 0 0 15px var(--main-color), 2px 2px 12px black; }
         }
 
         /* Стилі для товарів */
@@ -37,12 +50,34 @@
             display: flex;
             justify-content: center;
             gap: 50px;
-            margin: 30px auto;
+            margin: 5vh auto;
+            flex-wrap: wrap;
         }
 
         .product {
             width: 250px;
-            transition: all 0.3s;
+            transition: all 0.5s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .product::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(138, 43, 226, 0.1);
+            border-radius: 10px;
+            z-index: -1;
+            transform: scale(0.95);
+            transition: all 0.5s ease;
+        }
+
+        .product:hover::before {
+            transform: scale(1);
+            box-shadow: var(--shadow);
         }
 
         .product img {
@@ -50,97 +85,167 @@
             height: 250px;
             object-fit: cover;
             border-radius: 10px;
-            border: 2px solid #ff4444;
+            border: 2px solid var(--main-color);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            transition: all 0.5s ease;
         }
 
-        .product:hover {
+        .product:hover img {
             transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(138, 43, 226, 0.5);
         }
 
         .product-name {
             margin-top: 15px;
             font-size: 1.8em;
             text-shadow: 1px 1px 3px black;
+            animation: fadeIn 1s ease-out;
         }
 
         .product-price {
-            color: #ff4444;
+            color: var(--main-color);
             font-weight: bold;
             font-size: 1.8em;
             margin-top: 5px;
+            text-shadow: 0 0 8px rgba(138, 43, 226, 0.7);
         }
 
         /* Кнопка */
         .cta-button {
             display: inline-block;
             padding: 12px 40px;
-            background: #ff4444;
+            background: linear-gradient(135deg, var(--main-color), #6a0dad);
             color: white;
             text-decoration: none;
             border-radius: 50px;
             font-size: 1.3em;
             margin: 20px 0;
-            transition: all 0.3s;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.5s ease;
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transform: rotate(30deg);
+            transition: all 0.7s ease;
         }
 
         .cta-button:hover {
-            background: #ff0000;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(138, 43, 226, 0.8);
         }
 
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        /* Футер */
         .bottom {
             margin-bottom: 5vh;
             font-size: 2em;
             text-shadow: 2px 2px 6px black;
+            animation: slideUp 1s ease-out;
         }
 
         .bottom a {
-            color: #ff4444;
+            color: var(--main-color);
             text-decoration: none;
             font-weight: bold;
-            transition: 0.3s;
+            transition: all 0.3s;
+            position: relative;
         }
 
-        .bottom a:hover {
-            text-decoration: underline;
+        .bottom a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--main-color);
+            transition: width 0.3s ease;
         }
 
+        .bottom a:hover::after {
+            width: 100%;
+        }
+
+        /* Анімації */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Плаваючі частинки */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(138, 43, 226, 0.3);
+            border-radius: 50%;
+            animation: float linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Адаптація */
         @media (max-width: 768px) {
             body {
-                background: #111 url('images/bg-phone.jpg') no-repeat center center/cover;
-                background-attachment: scroll;
+                background: var(--dark-bg) url('images/bg-phone.jpg') no-repeat center center/cover;
                 animation: none;
-                height: auto;
-                min-height: 100vh;
             }
 
             h1 {
                 font-size: 3em;
-                margin-top: 5vh;
             }
 
             .products {
+                gap: 30px;
                 flex-direction: column;
                 align-items: center;
-                gap: 30px;
             }
 
             .product {
                 width: 80%;
-                max-width: 250px;
-            }
-
-            .bottom {
-                font-size: 1.5em;
-                margin-top: 30px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Плаваючі частинки -->
+    <div class="particles" id="particles"></div>
+
     <h1>047Gang</h1>
 
     <!-- Товари -->
@@ -159,10 +264,10 @@
             <div class="product-price">1399 грн</div>
         </div>
         
-        <!-- Футболка -->
+        <!-- Штани -->
         <div class="product">
-            <img src="images/item3.jpg" alt="Футболка 047Gang">
-            <div class="product-name">Футболка</div>
+            <img src="images/item3.jpg" alt="Штани 047Gang">
+            <div class="product-name">Штани</div>
             <div class="product-price">1399 грн</div>
         </div>
     </div>
@@ -173,5 +278,56 @@
     <div class="bottom">
         <p>шмотки — <a href="https://www.instagram.com/047markeliy/" target="_blank" rel="noopener noreferrer">Instagram</a></p>
     </div>
+
+    <script>
+        // Генератор плаваючих частинок
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 20;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Випадкові параметри
+                const size = Math.random() * 10 + 5;
+                const posX = Math.random() * window.innerWidth;
+                const duration = Math.random() * 20 + 10;
+                const delay = Math.random() * 5;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}px`;
+                particle.style.bottom = `-${size}px`;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.animationDelay = `${delay}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Запуск при завантаженні сторінки
+        window.addEventListener('load', createParticles);
+        
+        // Реакція на рух миші
+        document.addEventListener('mousemove', (e) => {
+            const products = document.querySelectorAll('.product');
+            const mouseX = e.clientX / window.innerWidth;
+            const mouseY = e.clientY / window.innerHeight;
+            
+            products.forEach((product, index) => {
+                const offsetX = (mouseX - 0.5) * 20;
+                const offsetY = (mouseY - 0.5) * 20;
+                const delay = index * 0.1;
+                
+                product.style.transform = `
+                    translate(${offsetX}px, ${offsetY}px)
+                    rotateX(${-offsetY}deg)
+                    rotateY(${offsetX}deg)
+                `;
+                product.style.transition = `transform 0.5s ${delay}s ease-out`;
+            });
+        });
+    </script>
 </body>
 </html>
