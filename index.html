@@ -168,6 +168,69 @@
             color: var(--main-color);
         }
 
+        /* FAQ секция */
+        .faq {
+            max-width: 800px;
+            margin: 3rem auto;
+            padding: 0 1rem;
+        }
+
+        .faq h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--main-color);
+            text-shadow: 0 0 8px rgba(138, 43, 226, 0.5);
+        }
+
+        .faq-item {
+            margin-bottom: 1rem;
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(20, 20, 20, 0.6);
+            border: none;
+            color: white;
+            font-size: 1.1rem;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .faq-question:hover {
+            background: rgba(138, 43, 226, 0.1);
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+        }
+
+        .faq-question.active::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background: rgba(10, 10, 10, 0.5);
+        }
+
+        .faq-answer p {
+            padding: 1rem;
+            margin: 0;
+            line-height: 1.6;
+        }
+
         /* Контакты внизу */
         .bottom {
             margin-top: auto;
@@ -225,27 +288,45 @@
             border: 2px solid var(--main-color);
             box-shadow: 0 8px 30px rgba(138,43,226,0.15);
             transform: translateY(-10px);
+            max-width: 90%;
+            width: 500px;
         }
         .modal h2 {
             margin-bottom: 14px;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             color: white;
         }
-        .modal .btn-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 10px; }
+        .modal .btn-row { 
+            display: flex; 
+            gap: 10px; 
+            justify-content: center; 
+            flex-wrap: wrap; 
+            margin-bottom: 10px; 
+        }
         .modal button {
             background: var(--main-color);
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 12px 24px;
             margin: 6px;
             cursor: pointer;
             border-radius: 8px;
             font-size: 1rem;
+            transition: all 0.3s;
+            flex: 1;
+            min-width: 200px;
+        }
+        .modal button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(138,43,226,0.4);
         }
         .modal .close-btn {
             background: transparent;
             border: 1px solid #444;
             color: #ddd;
+        }
+        .modal .close-btn:hover {
+            background: rgba(255,255,255,0.1);
         }
 
         /* Toast */
@@ -256,13 +337,21 @@
             transform: translateX(-50%);
             background: rgba(20,20,20,0.95);
             color: #fff;
-            padding: 10px 16px;
+            padding: 12px 24px;
             border-radius: 10px;
             border: 1px solid rgba(138,43,226,0.6);
             box-shadow: 0 6px 20px rgba(0,0,0,0.5);
             z-index: 2000;
             display: none;
             font-size: 0.95rem;
+            animation: toastFade 3s ease-out;
+        }
+
+        @keyframes toastFade {
+            0% { opacity: 0; bottom: 20px; }
+            10% { opacity: 1; bottom: 40px; }
+            90% { opacity: 1; bottom: 40px; }
+            100% { opacity: 0; bottom: 60px; }
         }
 
         /* Адаптация */
@@ -289,6 +378,18 @@
             .contacts {
                 flex-direction: column;
                 gap: 15px;
+            }
+
+            .modal button {
+                min-width: 100%;
+            }
+
+            .countdown-box {
+                min-width: 60px;
+            }
+
+            .countdown-value {
+                font-size: 1.5rem;
             }
         }
     </style>
@@ -332,12 +433,41 @@
             <div class="product-price">грн</div>
         </div>
         
-        <div class="product" onclick="showOrderModal('футболку')">
+        <div class="product" onclick="showOrderModal('штани')">
             <img src="images/item3.jpg" alt="Футболка 047Gang">
             <div class="product-name">Футболка</div>
             <div class="product-price">грн</div>
         </div>
     </div>
+
+    <!-- FAQ секция -->
+    <section class="faq">
+        <h2>Часті питання</h2>
+        <div class="faq-item">
+            <button class="faq-question">Як замовити товар?</button>
+            <div class="faq-answer">
+                <p>Натисніть на товар, який вас цікавить, оберіть спосіб зв'язку (Instagram або Telegram) та напишіть мені. Я допоможу з оформленням замовлення.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question">Які є способи оплати?</button>
+            <div class="faq-answer">
+                <p>Ми приймаємо оплату на карту або накладеним платежем при отриманні. Деталі обговоримо індивідуально.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question">Який термін доставки?</button>
+            <div class="faq-answer">
+                <p>Доставка зазвичай займає 2-5 днів по Україні. Точний термін залежить від вашого місцезнаходження.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question">Чи є можливість приміряти?</button>
+            <div class="faq-answer">
+                <p>Так, у Львові можливий самовивіз з приміркою. Деталі уточнюйте в особистому повідомленні.</p>
+            </div>
+        </div>
+    </section>
 
     <!-- Контакты внизу -->
     <div class="bottom">
@@ -354,10 +484,21 @@
     <!-- Модальное окно выбора -->
     <div class="modal" id="orderModal" role="dialog" aria-hidden="true" aria-labelledby="orderTitle">
         <div class="modal-content" role="document">
-            <h2 id="orderTitle">Куди написати?</h2>
+            <h2 id="orderTitle">Оберіть спосіб зв'язку</h2>
+            <p style="margin-bottom: 1.5rem;">Натисніть кнопку, щоб перейти до обраного месенджера з готовим повідомленням</p>
             <div class="btn-row">
-                <button id="instagramBtn" type="button">Instagram (скопіювати повідомлення)</button>
-                <button id="telegramBtn" type="button">Telegram</button>
+                <button id="instagramBtn" type="button">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="white" style="margin-right: 8px;">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.919-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"></path>
+                    </svg>
+                    Instagram
+                </button>
+                <button id="telegramBtn" type="button">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="white" style="margin-right: 8px;">
+                        <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.14-.26.26-.534.26l.213-3.053 5.56-5.022c.24-.213-.054-.334-.373-.12l-6.87 4.326-2.96-.924c-.64-.203-.658-.64.136-.954l11.57-4.458c.538-.196 1.006.128.832.941z"></path>
+                    </svg>
+                    Telegram
+                </button>
             </div>
             <div>
                 <button class="close-btn" onclick="closeModal()">Закрити</button>
@@ -373,9 +514,9 @@
         let selectedItem = '';
 
         function showOrderModal(itemLowercase) {
-            // itemLowercase — 'кофту' / 'футболку'
             selectedItem = itemLowercase;
             const modal = document.getElementById('orderModal');
+            document.getElementById('orderTitle').textContent = `Замовити ${itemLowercase}`;
             modal.classList.add('show');
             modal.setAttribute('aria-hidden', 'false');
         }
@@ -386,7 +527,7 @@
             modal.setAttribute('aria-hidden', 'true');
         }
 
-        function showToast(text, ms = 2200) {
+        function showToast(text, ms = 3000) {
             const toast = document.getElementById('toast');
             toast.textContent = text;
             toast.style.display = 'block';
@@ -397,37 +538,58 @@
 
         document.getElementById('instagramBtn').addEventListener('click', async () => {
             const message = `Привіт! Хочу замовити у тебе ${selectedItem}.`;
-            // Копируем в буфер и открываем профиль IG (на вебе авто-DM с текстом часто не працює),
-            // поэтому пользователь сам вставит сообщение в DM — это надёжно.
             try {
                 if (navigator.clipboard && window.isSecureContext) {
                     await navigator.clipboard.writeText(message);
-                    showToast('Повідомлення скопійовано у буфер обміну. Відкривається Instagram...');
+                    showToast('Повідомлення скопійовано! Відкриваю Instagram...');
                 } else {
-                    // fallback
                     const ta = document.createElement('textarea');
                     ta.value = message;
                     document.body.appendChild(ta);
-                    ta.focus();
                     ta.select();
-                    try { document.execCommand('copy'); showToast('Повідомлення скопійовано у буфер обміну. Відкривається Instagram...'); }
-                    catch (e) { showToast('Не вдалось скопіювати. Скопіюй вручну.'); }
+                    try { 
+                        document.execCommand('copy'); 
+                        showToast('Повідомлення скопійовано! Відкриваю Instagram...'); 
+                    }
+                    catch (e) { 
+                        showToast('Скопіюйте текст вручну:'); 
+                        ta.focus();
+                        return;
+                    }
                     ta.remove();
                 }
+                window.open('https://www.instagram.com/047markeliy/', '_blank');
             } catch (err) {
-                showToast('Не вдалось скопіювати в буфер.');
+                showToast('Помилка копіювання. Скопіюйте вручну: ' + message);
             }
-
-            // Откроем профиль в новой вкладке — юзер вставит скопійований текст в DM.
-            window.open('https://www.instagram.com/047markeliy/', '_blank');
             closeModal();
         });
 
         document.getElementById('telegramBtn').addEventListener('click', () => {
             const message = encodeURIComponent(`Привіт! Хочу замовити у тебе ${selectedItem}.`);
-            // Открываем ссылку Telegram с текстом (работает в большинстве случаев)
             window.open(`https://t.me/markeliy047?text=${message}`, '_blank');
             closeModal();
+        });
+
+        // ---- FAQ аккордеон ----
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const item = button.parentElement;
+                const answer = item.querySelector('.faq-answer');
+                const isOpen = button.classList.contains('active');
+
+                // Закрываем все открытые элементы
+                document.querySelectorAll('.faq-question').forEach(btn => {
+                    btn.classList.remove('active');
+                    btn.nextElementSibling.style.maxHeight = null;
+                });
+
+                // Открываем текущий, если он был закрыт
+                if (!isOpen) {
+                    button.classList.add('active');
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                }
+            });
         });
 
         // ---- Падающие блики ----
@@ -513,56 +675,5 @@
             }
         });
     </script>
-<body>
-  <!-- твой контент сверху -->
-  
-  <!-- Падающие блики -->
-  <div class="glitter" id="glitter"></div>
-  
-  <h1>047Gang</h1>
-  
-  <!-- Обратный отсчет -->
-  <div class="countdown">123</div>
-  
-  <!-- Товары -->
-  <div class="products">123</div>
-  
-  <!-- FAQ -->
-  <section class="faq">
-    <h2>Часті питання</h2>
-    <div class="faq-item">
-      <button class="faq-question">Як оформити замовлення?</button>
-      <div class="faq-answer">
-        <p>Ви можете вибрати товар і замовити через Instagram або Telegram.</p>
-      </div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-question">Які способи оплати?</button>
-      <div class="faq-answer">
-        <p>Оплата на карту або оплата при отриманні.</p>
-      </div>
-    </div>
-  </section>
-  
-  <!-- Контакты -->
-  <div class="bottom">
-    <div class="contacts">
-      <a href="https://www.instagram.com/047markeliy/" class="contact-link" target="_blank">
-        <span>Instagram:</span> @047markeliy
-      </a>
-      <a href="https://t.me/markeliy047" class="contact-link" target="_blank">
-        <span>Telegram:</span> @markeliy047
-      </a>
-    </div>
-  </div>
-  
-  <!-- Модальное окно -->
-  <div class="modal" id="orderModal">...</div>
-  
-  <!-- Toast -->
-  <div id="toast"></div>
-  
-  <script>/* твой js */</script>
 </body>
-
 </html>
