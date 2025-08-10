@@ -168,6 +168,57 @@
             color: var(--main-color);
         }
 
+        /* Секция доставки */
+        .delivery {
+            max-width: 800px;
+            margin: 3rem auto;
+            padding: 1.5rem;
+            background: rgba(20, 20, 20, 0.6);
+            border-radius: 15px;
+            border: 1px solid rgba(138, 43, 226, 0.3);
+        }
+
+        .delivery h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--main-color);
+            text-shadow: 0 0 8px rgba(138, 43, 226, 0.5);
+        }
+
+        .delivery-cities {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 1.5rem 0;
+        }
+
+        .city-card {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 1rem;
+            border-radius: 8px;
+            min-width: 120px;
+            border: 1px solid rgba(138, 43, 226, 0.2);
+            transition: all 0.3s;
+        }
+
+        .city-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.3);
+        }
+
+        .city-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: var(--main-color);
+        }
+
+        .delivery-info {
+            margin-top: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
         /* FAQ секция */
         .faq {
             max-width: 800px;
@@ -391,6 +442,15 @@
             .countdown-value {
                 font-size: 1.5rem;
             }
+
+            .delivery-cities {
+                gap: 10px;
+            }
+
+            .city-card {
+                min-width: 100px;
+                padding: 0.8rem;
+            }
         }
     </style>
 </head>
@@ -424,21 +484,56 @@
         <div class="product" onclick="showOrderModal('кофту')">
             <img src="images/item1.jpg" alt="Кофта 047Gang">
             <div class="product-name">Кофта</div>
-            <div class="product-price">грн</div>
+            <div class="product-price">2599 грн</div>
         </div>
         
         <div class="product" onclick="showOrderModal('футболку')">
             <img src="images/item2.jpg" alt="Футболка 047Gang">
             <div class="product-name">Футболка</div>
-            <div class="product-price">грн</div>
+            <div class="product-price">1399 грн</div>
         </div>
         
-        <div class="product" onclick="showOrderModal('футболку')">
-            <img src="images/item3.jpg" alt="Футболка 047Gang">
-            <div class="product-name">Футболка</div>
-            <div class="product-price">грн</div>
+        <div class="product" onclick="showOrderModal('штани')">
+            <img src="images/item3.jpg" alt="Штани 047Gang">
+            <div class="product-name">Штани</div>
+            <div class="product-price">1399 грн</div>
         </div>
     </div>
+
+    <!-- Секция доставки -->
+    <section class="delivery">
+        <h2>Доставка по всій Україні</h2>
+        <div class="delivery-cities">
+            <div class="city-card">
+                <div class="city-name">Київ</div>
+                <div>1-2 дні</div>
+            </div>
+            <div class="city-card">
+                <div class="city-name">Львів</div>
+                <div>1-2 дні</div>
+            </div>
+            <div class="city-card">
+                <div class="city-name">Дніпро</div>
+                <div>2-3 дні</div>
+            </div>
+            <div class="city-card">
+                <div class="city-name">Одеса</div>
+                <div>2-3 дні</div>
+            </div>
+            <div class="city-card">
+                <div class="city-name">Харків</div>
+                <div>2-3 дні</div>
+            </div>
+            <div class="city-card">
+                <div class="city-name">Запоріжжя</div>
+                <div>3-4 дні</div>
+            </div>
+        </div>
+        <div class="delivery-info">
+            <p>Доставка здійснюється службою "Нова Пошта". Вартість доставки від 50 грн залежно від розміру та ваги товару.</p>
+            <p>У Львові доступний самовивіз з можливістю примірки.</p>
+        </div>
+    </section>
 
     <!-- FAQ секция -->
     <section class="faq">
@@ -458,13 +553,13 @@
         <div class="faq-item">
             <button class="faq-question">Який термін доставки?</button>
             <div class="faq-answer">
-                <p>Доставка зазвичай займає 2-5 днів по Україні. Точний термін залежить від вашого місцезнаходження.</p>
+                <p>Доставка зазвичай займає 1-4 дні по Україні в залежності від вашого міста. Точний термін можна уточнити після оформлення замовлення.</p>
             </div>
         </div>
         <div class="faq-item">
-            <button class="faq-question">Чи є можливість приміряти?</button>
+            <button class="faq-question">Чи можна повернути товар?</button>
             <div class="faq-answer">
-                <p>Так, у Львові можливий самовивіз з приміркою. Деталі уточнюйте в особистому повідомленні.</p>
+                <p>Так, протягом 14 днів після отримання. Товар повинен бути у первісному стані з усіма бирками.</p>
             </div>
         </div>
     </section>
