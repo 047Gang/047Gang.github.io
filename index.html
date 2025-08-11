@@ -404,54 +404,23 @@
             90% { opacity: 1; bottom: 40px; }
             100% { opacity: 0; bottom: 60px; }
         }
-
-        /* Адаптация */
-        @media (max-width: 768px) {
-            body {
-                background: var(--dark-bg) url('images/bg-phone.jpg') no-repeat center center/cover;
-                animation: none;
-            }
-
-            h1 {
-                font-size: 3rem;
-            }
-            
-            .products {
-                gap: 30px;
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .product {
-                width: 80%;
-            }
-            
-            .contacts {
-                flex-direction: column;
-                gap: 15px;
-            }
-
-            .modal button {
-                min-width: 100%;
-            }
-
-            .countdown-box {
-                min-width: 60px;
-            }
-
-            .countdown-value {
-                font-size: 1.5rem;
-            }
-
-            .delivery-cities {
-                gap: 10px;
-            }
-
-            .city-card {
-                min-width: 100px;
-                padding: 0.8rem;
-            }
-        }
+/* 📱 Мобильная адаптация */
+@media (max-width: 768px) {
+  .explosion {
+    padding: 40px 10px;
+  }
+  .explosion-title {
+    font-size: 2rem;
+  }
+  .explosion-stats {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .count {
+    font-size: 2.5rem;
+  }
+}
+               }
 .explosion {
   padding: 60px 20px;
   text-align: center;
