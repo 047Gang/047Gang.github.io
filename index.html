@@ -666,15 +666,6 @@
 </head>
 <body>
 <script>
-/* === Video-as-GIF replacer (mp4 -> autoplay loop) ===
-   Place this script before </body>. 
-   Configure videoMap: keys = selectorKey (see below), values = video URL (relative or absolute).
-   Selector keys supported:
-     - 'product-0', 'product-1', 'product-2' ...  (indexed products in .products order)
-     - 'hero-tshirt' (the hero t-shirt image)
-   If you prefer to match by alt text, change mapping logic below.
-*/
-
 (function() {
   // --- Настройки: положи свои mp4 в images/ или укажи URL
   const videoMap = {
@@ -682,7 +673,6 @@
     'product-0': 'images/hoodie.mp4',
     'product-1': 'images/tshirt-1.mp4',
     'product-2': 'images/tshirt-2.mp4',
-    'hero-tshirt': 'images/hero-tshirt.mp4'
   };
 
   // Опции видео
