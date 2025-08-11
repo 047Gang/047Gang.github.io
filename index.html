@@ -761,6 +761,200 @@ img {
   <button data-lang="en" class="lang-btn">EN</button>
 </div>
 
+const translations = {
+    ua: {
+        // Заголовки
+        title: "047Gang",
+        countdownTitle: "ДО НОВОГО DROPУ ЗАЛИШИЛОСЬ:",
+        
+        // Товары
+        hoodie: "Кофта",
+        tshirt1: "Футболка",
+        tshirt2: "Футболка",
+        
+        // Статистика
+        sold: "продано",
+        members: "участников банди",
+        
+        // Доставка
+        deliveryTitle: "Доставка по всій Україні",
+        deliveryInfo1: "Доставка здійснюється службою 'Нова Пошта'. Вартість доставки від 100 грн залежно від розміру та ваги товару.",
+        deliveryInfo2: "У Львові доступний самовивіз з можливістю примірки.",
+        
+        // FAQ
+        faqTitle: "Часті питання",
+        q1: "Як замовити товар?",
+        a1: "Натисніть на товар, який вас цікавить, оберіть спосіб зв'язку (Instagram або Telegram) та напишіть мені. Я допоможу з оформленням замовлення.",
+        q2: "Які є способи оплати?",
+        a2: "Ми приймаємо оплату на карту або накладеним платежем при отриманні. Деталі обговоримо індивідуально.",
+        q3: "Який термін доставки?",
+        a3: "Доставка зазвичай займає 1-4 дні по Україні в залежності від вашого міста. Точний термін можна уточнити після оформлення замовлення.",
+        q4: "Чи можна повернути товар?",
+        a4: "Так, протягом 14 днів після отримання. Товар повинен бути у первісному стані з усіма бирками.",
+        
+        // Модальное окно
+        modalTitle: "Оберіть спосіб зв'язку",
+        modalText: "Натисніть кнопку, щоб перейти до обраного месенджера з готовим повідомленням",
+        closeBtn: "Закрити",
+        
+        // Marquee
+        marqueeText: "НАЙБЛИЖЧИЙ DROP: ФУТБОЛКИ — ТІЛЬКИ 25 ШТ. • ПІДПИСУЙСЯ В TELEGRAM - *.047gang* • "
+    },
+    en: {
+        // Заголовки
+        title: "047Gang",
+        countdownTitle: "TIME LEFT UNTIL NEW DROP:",
+        
+        // Товары
+        hoodie: "Hoodie",
+        tshirt1: "T-shirt",
+        tshirt2: "T-shirt",
+        
+        // Статистика
+        sold: "sold",
+        members: "gang members",
+        
+        // Доставка
+        deliveryTitle: "Delivery across Ukraine",
+        deliveryInfo1: "Delivery is carried out by 'Nova Poshta'. Delivery cost starts from 100 UAH depending on the size and weight of the item.",
+        deliveryInfo2: "In Lviv, self-pickup with fitting option is available.",
+        
+        // FAQ
+        faqTitle: "Frequently Asked Questions",
+        q1: "How to order?",
+        a1: "Click on the product you are interested in, choose a contact method (Instagram or Telegram) and write to me. I will help you with the order.",
+        q2: "What payment methods are available?",
+        a2: "We accept card payments or cash on delivery. Details will be discussed individually.",
+        q3: "What is the delivery time?",
+        a3: "Delivery usually takes 1-4 days across Ukraine depending on your city. Exact time can be specified after placing the order.",
+        q4: "Can I return the item?",
+        a4: "Yes, within 14 days after receipt. The item must be in its original condition with all tags attached.",
+        
+        // Модальное окно
+        modalTitle: "Choose contact method",
+        modalText: "Click the button to go to the selected messenger with a prepared message",
+        closeBtn: "Close",
+        
+        // Marquee
+        marqueeText: "NEXT DROP: T-SHIRTS — ONLY 25 PCS. • SUBSCRIBE ON TELEGRAM - *.047gang* • "
+    }
+};
+
+function translateSite(lang) {
+    const t = translations[lang];
+    
+    // Основные элементы
+    document.querySelector('h1').textContent = t.title;
+    document.querySelector('.countdown-title').textContent = t.countdownTitle;
+    
+    // Товары
+    const products = document.querySelectorAll('.product-name');
+    products[0].textContent = t.hoodie;
+    products[1].textContent = t.tshirt1;
+    products[2].textContent = t.tshirt2;
+    
+    // Статистика
+    document.querySelector('#hoodieCount').nextElementSibling.textContent = t.sold;
+    document.querySelector('#gangCount').nextElementSibling.textContent = t.members;
+    
+    // Доставка
+    document.querySelector('.delivery h2').textContent = t.deliveryTitle;
+    const deliveryInfos = document.querySelectorAll('.delivery-info p');
+    deliveryInfos[0].textContent = t.deliveryInfo1;
+    deliveryInfos[1].textContent = t.deliveryInfo2;
+    
+    // FAQ
+    document.querySelector('.faq h2').textContent = t.faqTitle;
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    const faqAnswers = document.querySelectorAll('.faq-answer p');
+    
+    faqQuestions[0].textContent = t.q1;
+    faqAnswers[0].textContent = t.a1;
+    faqQuestions[1].textContent = t.q2;
+    faqAnswers[1].textContent = t.a2;
+    faqQuestions[2].textContent = t.q3;
+    faqAnswers[2].textContent = t.a3;
+    faqQuestions[3].textContent = t.q4;
+    faqAnswers[3].textContent = t.a4;
+    
+    // Модальное окно
+    document.getElementById('orderTitle').textContent = t.modalTitle;
+    document.querySelector('.modal-content p').textContent = t.modalText;
+    document.querySelector('.close-btn').textContent = t.closeBtn;
+    
+    // Marquee
+    document.querySelector('.site-marquee .track').textContent = t.marqueeText;
+    
+    // Сообщения для копирования в модальном окне
+    selectedItemTranslations = {
+        ua: {
+            hoodie: "кофту",
+            tshirt: "футболку"
+        },
+        en: {
+            hoodie: "hoodie",
+            tshirt: "T-shirt"
+        }
+    };
+}
+
+document.querySelectorAll(".lang-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+        document.querySelectorAll(".lang-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        
+        const lang = btn.getAttribute("data-lang");
+        translateSite(lang);
+        
+        // Обновляем текст для модального окна заказа
+        if (selectedItem) {
+            const itemType = selectedItem.includes('футбол') ? 'tshirt' : 'hoodie';
+            selectedItem = selectedItemTranslations[lang][itemType];
+        }
+    });
+});
+
+function showOrderModal(itemLowercase) {
+    selectedItem = itemLowercase;
+    const modal = document.getElementById('orderModal');
+    
+    // Определяем текущий язык
+    const currentLang = document.querySelector('.lang-btn.active').getAttribute('data-lang');
+    const itemType = itemLowercase.includes('футбол') ? 'tshirt' : 'hoodie';
+    
+    // Устанавливаем заголовок на нужном языке
+    const modalTitle = currentLang === 'ua' 
+        ? `Замовити ${itemLowercase}`
+        : `Order ${selectedItemTranslations.en[itemType]}`;
+    
+    document.getElementById('orderTitle').textContent = modalTitle;
+    modal.classList.add('show');
+    modal.setAttribute('aria-hidden', 'false');
+}
+
+document.getElementById('instagramBtn').addEventListener('click', async () => {
+    const currentLang = document.querySelector('.lang-btn.active').getAttribute('data-lang');
+    const itemType = selectedItem.includes('футбол') ? 'tshirt' : 'hoodie';
+    
+    const message = currentLang === 'ua' 
+        ? `Привіт! Хочу замовити у тебе ${selectedItem}.`
+        : `Hi! I want to order ${selectedItemTranslations.en[itemType]}.`;
+    
+    // остальной код обработчика остается таким же
+});
+
+document.getElementById('telegramBtn').addEventListener('click', () => {
+    const currentLang = document.querySelector('.lang-btn.active').getAttribute('data-lang');
+    const itemType = selectedItem.includes('футбол') ? 'tshirt' : 'hoodie';
+    
+    const message = currentLang === 'ua' 
+        ? `Привіт! Хочу замовити у тебе ${selectedItem}.`
+        : `Hi! I want to order ${selectedItemTranslations.en[itemType]}.`;
+    
+    window.open(`https://t.me/markeliy047?text=${encodeURIComponent(message)}`, '_blank');
+    closeModal();
+});
+
 <!-- ===== end PART 2 ===== -->
 
     <!-- Падающие блики -->
@@ -1338,34 +1532,207 @@ if (document.readyState === 'complete' || document.readyState === 'interactive')
 <!-- ... весь твой HTML выше ... -->
 
 <script>
-  const translations = {
+// Полный словарь переводов
+const translations = {
     ua: {
-      title: "Вітаємо на нашому сайті!",
-      hoodie: "продано худі",
-      gang: "учасників банди"
+        title: "047Gang",
+        countdownTitle: "ДО НОВОГО DROPУ ЗАЛИШИЛОСЬ:",
+        hoodie: "Кофта",
+        tshirt1: "Футболка",
+        tshirt2: "Футболка",
+        sold: "продано",
+        members: "участников банди",
+        deliveryTitle: "Доставка по всій Україні",
+        deliveryInfo1: "Доставка здійснюється службою 'Нова Пошта'. Вартість доставки від 100 грн залежно від розміру та ваги товару.",
+        deliveryInfo2: "У Львові доступний самовивіз з можливістю примірки.",
+        faqTitle: "Часті питання",
+        q1: "Як замовити товар?",
+        a1: "Натисніть на товар, який вас цікавить, оберіть спосіб зв'язку (Instagram або Telegram) та напишіть мені. Я допоможу з оформленням замовлення.",
+        q2: "Які є способи оплати?",
+        a2: "Ми приймаємо оплату на карту або накладеним платежем при отриманні. Деталі обговоримо індивідуально.",
+        q3: "Який термін доставки?",
+        a3: "Доставка зазвичай займає 1-4 дні по Україні в залежності від вашого міста. Точний термін можна уточнити після оформлення замовлення.",
+        q4: "Чи можна повернути товар?",
+        a4: "Так, протягом 14 днів після отримання. Товар повинен бути у первісному стані з усіма бирками.",
+        modalTitle: "Оберіть спосіб зв'язку",
+        modalText: "Натисніть кнопку, щоб перейти до обраного месенджера з готовим повідомленням",
+        closeBtn: "Закрити",
+        marqueeText: "НАЙБЛИЖЧИЙ DROP: ФУТБОЛКИ — ТІЛЬКИ 25 ШТ. • ПІДПИСУЙСЯ В TELEGRAM - *.047gang* • "
     },
     en: {
-      title: "Welcome to our website!",
-      hoodie: "hoodies sold",
-      gang: "gang members"
+        title: "047Gang",
+        countdownTitle: "TIME LEFT UNTIL NEW DROP:",
+        hoodie: "Hoodie",
+        tshirt1: "T-shirt",
+        tshirt2: "T-shirt",
+        sold: "sold",
+        members: "gang members",
+        deliveryTitle: "Delivery across Ukraine",
+        deliveryInfo1: "Delivery is carried out by 'Nova Poshta'. Delivery cost starts from 100 UAH depending on the size and weight of the item.",
+        deliveryInfo2: "In Lviv, self-pickup with fitting option is available.",
+        faqTitle: "Frequently Asked Questions",
+        q1: "How to order?",
+        a1: "Click on the product you are interested in, choose a contact method (Instagram or Telegram) and write to me. I will help you with the order.",
+        q2: "What payment methods are available?",
+        a2: "We accept card payments or cash on delivery. Details will be discussed individually.",
+        q3: "What is the delivery time?",
+        a3: "Delivery usually takes 1-4 days across Ukraine depending on your city. Exact time can be specified after placing the order.",
+        q4: "Can I return the item?",
+        a4: "Yes, within 14 days after receipt. The item must be in its original condition with all tags attached.",
+        modalTitle: "Choose contact method",
+        modalText: "Click the button to go to the selected messenger with a prepared message",
+        closeBtn: "Close",
+        marqueeText: "NEXT DROP: T-SHIRTS — ONLY 25 PCS. • SUBSCRIBE ON TELEGRAM - *.047gang* • "
     }
-  };
+};
 
-  document.querySelectorAll(".lang-btn").forEach(btn => {
+const selectedItemTranslations = {
+    ua: {
+        hoodie: "кофту",
+        tshirt: "футболку"
+    },
+    en: {
+        hoodie: "hoodie",
+        tshirt: "T-shirt"
+    }
+};
+
+let selectedItem = '';
+
+// Функция перевода всего сайта
+function translateSite(lang) {
+    const t = translations[lang];
+    
+    // Основные элементы
+    document.querySelector('h1').textContent = t.title;
+    document.querySelector('.countdown-title').textContent = t.countdownTitle;
+    
+    // Товары
+    const products = document.querySelectorAll('.product-name');
+    products[0].textContent = t.hoodie;
+    products[1].textContent = t.tshirt1;
+    products[2].textContent = t.tshirt2;
+    
+    // Статистика
+    document.querySelector('#hoodieCount').nextElementSibling.textContent = t.sold;
+    document.querySelector('#gangCount').nextElementSibling.textContent = t.members;
+    
+    // Доставка
+    document.querySelector('.delivery h2').textContent = t.deliveryTitle;
+    const deliveryInfos = document.querySelectorAll('.delivery-info p');
+    deliveryInfos[0].textContent = t.deliveryInfo1;
+    deliveryInfos[1].textContent = t.deliveryInfo2;
+    
+    // FAQ
+    document.querySelector('.faq h2').textContent = t.faqTitle;
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    const faqAnswers = document.querySelectorAll('.faq-answer p');
+    
+    faqQuestions[0].textContent = t.q1;
+    faqAnswers[0].textContent = t.a1;
+    faqQuestions[1].textContent = t.q2;
+    faqAnswers[1].textContent = t.a2;
+    faqQuestions[2].textContent = t.q3;
+    faqAnswers[2].textContent = t.a3;
+    faqQuestions[3].textContent = t.q4;
+    faqAnswers[3].textContent = t.a4;
+    
+    // Модальное окно
+    document.getElementById('orderTitle').textContent = t.modalTitle;
+    document.querySelector('.modal-content p').textContent = t.modalText;
+    document.querySelector('.close-btn').textContent = t.closeBtn;
+    
+    // Marquee
+    document.querySelector('.site-marquee .track').textContent = t.marqueeText;
+}
+
+// Обработчики кнопок перевода
+document.querySelectorAll(".lang-btn").forEach(btn => {
     btn.addEventListener("click", () => {
-      document.querySelectorAll(".lang-btn").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-
-      const lang = btn.getAttribute("data-lang");
-      document.querySelector(".explosion-title").textContent = translations[lang].title;
-      document.querySelector("#hoodieCount").nextElementSibling.textContent = translations[lang].hoodie;
-      document.querySelector("#gangCount").nextElementSibling.textContent = translations[lang].gang;
+        document.querySelectorAll(".lang-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        
+        const lang = btn.getAttribute("data-lang");
+        translateSite(lang);
+        
+        // Обновляем текст для модального окна заказа
+        if (selectedItem) {
+            const itemType = selectedItem.includes('футбол') ? 'tshirt' : 'hoodie';
+            selectedItem = selectedItemTranslations[lang][itemType];
+        }
     });
-  });
+});
+
+// Обновленная функция showOrderModal
+function showOrderModal(itemLowercase) {
+    selectedItem = itemLowercase;
+    const modal = document.getElementById('orderModal');
+    
+    // Определяем текущий язык
+    const currentLang = document.querySelector('.lang-btn.active').getAttribute('data-lang');
+    const itemType = itemLowercase.includes('футбол') ? 'tshirt' : 'hoodie';
+    
+    // Устанавливаем заголовок на нужном языке
+    const modalTitle = currentLang === 'ua' 
+        ? `Замовити ${itemLowercase}`
+        : `Order ${selectedItemTranslations.en[itemType]}`;
+    
+    document.getElementById('orderTitle').textContent = modalTitle;
+    modal.classList.add('show');
+    modal.setAttribute('aria-hidden', 'false');
+}
+
+// Обновленные обработчики кнопок в модальном окне
+document.getElementById('instagramBtn').addEventListener('click', async () => {
+    const currentLang = document.querySelector('.lang-btn.active').getAttribute('data-lang');
+    const itemType = selectedItem.includes('футбол') ? 'tshirt' : 'hoodie';
+    
+    const message = currentLang === 'ua' 
+        ? `Привіт! Хочу замовити у тебе ${selectedItem}.`
+        : `Hi! I want to order ${selectedItemTranslations.en[itemType]}.`;
+    
+    try {
+        if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(message);
+            showToast(currentLang === 'ua' ? 'Повідомлення скопійовано! Відкриваю Instagram...' : 'Message copied! Opening Instagram...');
+        } else {
+            const ta = document.createElement('textarea');
+            ta.value = message;
+            document.body.appendChild(ta);
+            ta.select();
+            try { 
+                document.execCommand('copy'); 
+                showToast(currentLang === 'ua' ? 'Повідомлення скопійовано! Відкриваю Instagram...' : 'Message copied! Opening Instagram...'); 
+            }
+            catch (e) { 
+                showToast(currentLang === 'ua' ? 'Скопіюйте текст вручну:' : 'Copy text manually:'); 
+                ta.focus();
+                return;
+            }
+            ta.remove();
+        }
+        window.open('https://www.instagram.com/047markeliy/', '_blank');
+    } catch (err) {
+        showToast(currentLang === 'ua' ? 'Помилка копіювання. Скопіюйте вручну: ' + message : 'Copy error. Copy manually: ' + message);
+    }
+    closeModal();
+});
+
+document.getElementById('telegramBtn').addEventListener('click', () => {
+    const currentLang = document.querySelector('.lang-btn.active').getAttribute('data-lang');
+    const itemType = selectedItem.includes('футбол') ? 'tshirt' : 'hoodie';
+    
+    const message = currentLang === 'ua' 
+        ? `Привіт! Хочу замовити у тебе ${selectedItem}.`
+        : `Hi! I want to order ${selectedItemTranslations.en[itemType]}.`;
+    
+    window.open(`https://t.me/markeliy047?text=${encodeURIComponent(message)}`, '_blank');
+    closeModal();
+});
+
+// Остальной ваш JavaScript код остается без изменений
 </script>
 
 </body>
-</html>
 
-</body>
 </html>
