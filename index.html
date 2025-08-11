@@ -452,6 +452,39 @@
                 padding: 0.8rem;
             }
         }
+.explosion {
+  padding: 60px 20px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.8);
+  border-top: 2px solid #ff0047;
+  border-bottom: 2px solid #ff0047;
+}
+
+.explosion-title {
+  font-size: 2.5rem;
+  color: #ff0047;
+  margin-bottom: 30px;
+  text-shadow: 0 0 10px #ff0047, 0 0 20px #ff0047;
+}
+
+.explosion-stats {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  flex-wrap: wrap;
+}
+
+.stat {
+  color: #fff;
+}
+
+.count {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #ff0047;
+  text-shadow: 0 0 10px #ff0047, 0 0 20px #ff0047;
+}
+
 /* ====== ADDITIONAL VISUAL CSS: gradients, glass cards, ribbons, badges, animated lines ====== */
 
 /* neon ribbon */
@@ -665,170 +698,6 @@
     </style>
 </head>
 <body>
-<script>
-(function() {
-  // --- Настройки: положи свои mp4 в images/ или укажи URL
-  const videoMap = {
-    // пример: product-0 соответствует первой карточке .products .product (индекс 0)
-    'product-0': 'images/hoodie.mp4',
-    'product-1': 'images/tshirt-1.mp4',
-    'product-2': 'images/tshirt-2.mp4',
-  };
-
-  // Опции видео
-  const videoAttrs = {
-    autoplay: true,
-    muted: true,
-    loop: true,
-    playsinline: true,
-    preload: 'metadata', // quick load of metadata
-    // controls: true // включи, если хочешь, чтобы пользователи могли поставить на паузу
-  };
-
-  // Вспомог: применить стили, одинаковые с .product img
-  function applyVideoStyles(videoEl, imgEl) {
-    videoEl.style.width = imgEl.style.width || '100%';
-    videoEl.style.height = imgEl.style.height || imgEl.getAttribute('height') || '250px';
-    videoEl.style.objectFit = getComputedStyle(imgEl).objectFit || 'cover';
-    videoEl.style.borderRadius = getComputedStyle(imgEl).borderRadius || '10px';
-    videoEl.style.border = getComputedStyle(imgEl).border || '2px solid var(--main-color)';
-    videoEl.style.transition = getComputedStyle(imgEl).transition || 'all 0.5s ease';
-    videoEl.className = imgEl.className + ' replaced-video'; // сохранить классы если нужны
-    // ARIA
-    videoEl.setAttribute('aria-hidden', 'false');
-  }
-
-  // Создаёт элемент <video> с source, но не ставит src сразу (lazy)
-  function createVideoElement(src, poster) {
-    const video = document.createElement('video');
-    for (const k in videoAttrs) {
-      if (videoAttrs[k] === true) video.setAttribute(k, '');
-      else video.setAttribute(k, videoAttrs[k]);
-    }
-    video.setAttribute('data-video-src', src); // ленивый источник
-    if (poster) video.setAttribute('poster', poster);
-    video.muted = true;
-    video.playsInline = true;
-    video.loop = true;
-    video.preload = 'metadata';
-    video.style.display = 'block';
-    return video;
-  }
-
-  // IntersectionObserver для ленивой загрузки видео (подставляет <source>)
-  function initLazyVideoObserver() {
-    if (!('IntersectionObserver' in window)) {
-      // fallback — просто загрузим все
-      document.querySelectorAll('video[data-video-src]').forEach(loadVideoNow);
-      return;
-    }
-    const obs = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        const v = entry.target;
-        observer.unobserve(v);
-        loadVideoNow(v);
-      });
-    }, { rootMargin: '200px' });
-    document.querySelectorAll('video[data-video-src]').forEach(v => obs.observe(v));
-  }
-
-  function loadVideoNow(videoEl) {
-    const src = videoEl.getAttribute('data-video-src');
-    if (!src) return;
-    // если уже поставлен <source>, ничего не делать
-    if (videoEl.querySelector('source')) return;
-    const source = document.createElement('source');
-    source.src = src;
-    // попытка определить mime типа (mp4)
-    source.type = 'video/mp4';
-    videoEl.appendChild(source);
-    // пробуем play() для мобильных — браузеры могут запрещать autoplay без user gesture; но muted позволяет
-    // catch ошибки тихо
-    videoEl.load();
-    const playPromise = videoEl.play();
-    if (playPromise !== undefined) {
-      playPromise.catch(()=>{ /* silent */ });
-    }
-  }
-
-  // Основная логика: найти target элементы и заменить картинку на видео
-  function replaceProductsWithVideo() {
-    const productEls = Array.from(document.querySelectorAll('.products .product'));
-    productEls.forEach((prodEl, idx) => {
-      const key = 'product-' + idx;
-      const videoSrc = videoMap[key];
-      if (!videoSrc) return; // пропускаем если нет видео для этой карточки
-
-      // найти первый <img> внутри карточки
-      const img = prodEl.querySelector('img');
-      if (!img) return;
-      // создаём video, применяем стили
-      const vid = createVideoElement(videoSrc, img.getAttribute('src') || '');
-      applyVideoStyles(vid, img);
-
-      // важно: сохранить onclick (если есть) и tabindex, aria
-      // карточка сама имеет onclick="showOrderModal('...')", оставляем её, но клики на видео тоже должны открывать модалку
-      vid.style.cursor = 'pointer';
-      // клик по видео — прокинем событие на родительский .product чтобы вызвать showOrderModal
-      vid.addEventListener('click', (e) => {
-        // если родитель имеет onclick атрибут — вызовем его
-        const cb = prodEl.getAttribute('onclick');
-        if (cb) {
-          // eval небезопасен, но в данном локальном статичном случае допустим; альтернативно — dispatchEvent
-          try { new Function(cb)(); } catch (err) { /* silent */ }
-        } else {
-          // пробуем вызвать клик на родителе
-          prodEl.click();
-        }
-      });
-
-      // заменим img на video (оставим img в качестве 'poster/fallback' в DOM? — мы заменяем полностью)
-      img.replaceWith(vid);
-    });
-  }
-
-  // Replace hero image if exists and mapping provided
-  function replaceHeroTShirt() {
-    if (!videoMap['hero-tshirt']) return;
-    // ищем картинку в hero-cover (в твоём коде есть <img src="images/t-shirt.jpg" alt="t-shirt">)
-    const heroImg = document.querySelector('.hero-cover img');
-    if (!heroImg) return;
-    const vid = createVideoElement(videoMap['hero-tshirt'], heroImg.getAttribute('src') || '');
-    applyVideoStyles(vid, heroImg);
-    // небольшой кастом: оставить управление параллаксом
-    vid.classList.add('hero-video');
-    heroImg.replaceWith(vid);
-  }
-
-  // --- Инициализация ---
-  function init() {
-    try {
-      replaceProductsWithVideo();
-      replaceHeroTShirt();
-      initLazyVideoObserver();
-
-      // если у тебя есть hover 3D-эффект, он применится к .product; для видео стоит добавить transition
-      document.querySelectorAll('.product video').forEach(v => {
-        v.style.transition = 'transform 0.45s ease, box-shadow 0.45s ease';
-      });
-
-      // бонус: на мобильных иногда autoplay запрещён — показываем toast/совет
-      // (если нужно, можно добавить кнопку play/pause)
-    } catch (err) {
-      console.error('video replacer init error', err);
-    }
-  }
-
-  // ждем загрузки DOM
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    setTimeout(init, 80);
-  }
-})();
-</script>
-
 <!-- ===== end PART 2 ===== -->
 
     <!-- Падающие блики -->
@@ -875,6 +744,20 @@
             <div class="product-price">грн</div>
         </div>
     </div>
+
+<section class="explosion">
+  <h2 class="explosion-title">047 Взрыв</h2>
+  <div class="explosion-stats">
+    <div class="stat">
+      <span id="hoodieCount" class="count">0</span>
+      <p>продано худи</p>
+    </div>
+    <div class="stat">
+      <span id="gangCount" class="count">0</span>
+      <p>участников банды</p>
+    </div>
+  </div>
+</section>
 
 
 <!-- ===== ADDITIONAL VISUAL SECTIONS (paste after .products) ===== -->
@@ -1434,5 +1317,26 @@ if (document.readyState === 'complete' || document.readyState === 'interactive')
 /* ===== end PART 3 ===== */
 
     </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/countup.js/2.6.2/countUp.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const hoodieCounter = new CountUp('hoodieCount', 470, { duration: 3 });
+    const gangCounter = new CountUp('gangCount', 1250, { duration: 3 });
+
+    let triggered = false;
+    window.addEventListener('scroll', function () {
+      const explosionSection = document.querySelector('.explosion');
+      const sectionPos = explosionSection.getBoundingClientRect().top;
+      const screenHeight = window.innerHeight;
+
+      if (!triggered && sectionPos < screenHeight - 50) {
+        hoodieCounter.start();
+        gangCounter.start();
+        triggered = true;
+      }
+    });
+  });
+</script>
+
 </body>
 </html>
