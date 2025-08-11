@@ -509,6 +509,40 @@ img {
   text-shadow: 0 0 10px #8a2be2, 0 0 20px #8a2be2;
 }
 
+.lang-switcher {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  gap: 5px;
+  z-index: 1000;
+}
+
+.lang-btn {
+  background: transparent;
+  border: 1px solid #8a2be2;
+  color: #8a2be2;
+  padding: 5px 10px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.lang-btn.active,
+.lang-btn:hover {
+  background: #8a2be2;
+  color: #000;
+  box-shadow: 0 0 10px #8a2be2, 0 0 20px #8a2be2;
+}
+
+/* 📱 Мобильная адаптация */
+@media (max-width: 600px) {
+  .lang-btn {
+    font-size: 0.8rem;
+    padding: 4px 8px;
+  }
+}
+
 /* ====== ADDITIONAL VISUAL CSS: gradients, glass cards, ribbons, badges, animated lines ====== */
 
 /* neon ribbon */
@@ -722,6 +756,11 @@ img {
     </style>
 </head>
 <body>
+<div class="lang-switcher">
+  <button data-lang="ua" class="lang-btn active">UA</button>
+  <button data-lang="en" class="lang-btn">EN</button>
+</div>
+
 <!-- ===== end PART 2 ===== -->
 
     <!-- Падающие блики -->
@@ -1296,6 +1335,37 @@ if (document.readyState === 'complete' || document.readyState === 'interactive')
     });
   });
 </script>
+<!-- ... весь твой HTML выше ... -->
+
+<script>
+  const translations = {
+    ua: {
+      title: "Вітаємо на нашому сайті!",
+      hoodie: "продано худі",
+      gang: "учасників банди"
+    },
+    en: {
+      title: "Welcome to our website!",
+      hoodie: "hoodies sold",
+      gang: "gang members"
+    }
+  };
+
+  document.querySelectorAll(".lang-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".lang-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      const lang = btn.getAttribute("data-lang");
+      document.querySelector(".explosion-title").textContent = translations[lang].title;
+      document.querySelector("#hoodieCount").nextElementSibling.textContent = translations[lang].hoodie;
+      document.querySelector("#gangCount").nextElementSibling.textContent = translations[lang].gang;
+    });
+  });
+</script>
+
+</body>
+</html>
 
 </body>
 </html>
