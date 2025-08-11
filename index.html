@@ -404,23 +404,78 @@
             90% { opacity: 1; bottom: 40px; }
             100% { opacity: 0; bottom: 60px; }
         }
-/* 📱 Мобильная адаптация */
-@media (max-width: 768px) {
-  .explosion {
-    padding: 40px 10px;
+        }
+ /* --- Мобильная адаптация 047Gang --- */
+
+/* Базовые настройки для любых экранов */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.container {
+  width: 100%;
+  padding: 0 15px;
+}
+
+/* --- Для экранов до 768px (планшет и телефон) --- */
+@media screen and (max-width: 768px) {
+  body {
+    font-size: 16px;
+    line-height: 1.4;
   }
-  .explosion-title {
-    font-size: 2rem;
+
+  h1, h2, h3 {
+    font-size: 1.3em;
+    text-align: center;
   }
-  .explosion-stats {
+
+  .product-card, .review, .section {
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+  }
+
+  .reviews {
+    display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
   }
-  .count {
-    font-size: 2.5rem;
+
+  /* Чтобы кнопки и ссылки были удобны для пальцев */
+  button, a {
+    display: inline-block;
+    padding: 12px 18px;
+    font-size: 1em;
   }
 }
-               }
+
+/* --- Для экранов до 480px (маленькие телефоны) --- */
+@media screen and (max-width: 480px) {
+  body {
+    font-size: 15px;
+  }
+
+  h1, h2, h3 {
+    font-size: 1.1em;
+  }
+
+  .container {
+    padding: 0 10px;
+  }
+}
+
 .explosion {
   padding: 60px 20px;
   text-align: center;
