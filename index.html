@@ -1013,14 +1013,8 @@ const translations = {
 };
 
 const selectedItemTranslations = {
-    ua: {
-        hoodie: "кофту",
-        tshirt: "футболку"
-    },
-    en: {
-        hoodie: "hoodie",
-        tshirt: "T-shirt"
-    }
+    ua: { hoodie: "кофту", tshirt: "футболку" },
+    en: { hoodie: "hoodie", tshirt: "T-shirt" }
 };
 
 let selectedItem = '';
@@ -1038,7 +1032,8 @@ function translateSite(lang) {
     document.querySelector('.delivery h2').textContent = t.deliveryTitle;
     const deliveryInfos = document.querySelectorAll('.delivery-info p');
     deliveryInfos[0].textContent = t.deliveryInfo1;
-    deliveryInfos[1].textContent = t.deliveryInfo2;
+    // deliveryInfos[1] может не быть, если только один абзац
+    if (deliveryInfos[1]) deliveryInfos[1].textContent = t.deliveryInfo2 || '';
     document.querySelector('.faq h2').textContent = t.faqTitle;
     const faqQuestions = document.querySelectorAll('.faq-question');
     const faqAnswers = document.querySelectorAll('.faq-answer p');
