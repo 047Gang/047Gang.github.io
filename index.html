@@ -1529,8 +1529,6 @@ if (document.readyState === 'complete' || document.readyState === 'interactive')
     });
   });
 </script>
-<!-- ... весь твой HTML выше ... -->
-
 <script>
 // Полный словарь переводов
 const translations = {
@@ -1657,7 +1655,7 @@ document.querySelectorAll(".lang-btn").forEach(btn => {
         
         // Обновляем текст для модального окна заказа
         if (selectedItem) {
-            const itemType = selectedItem.includes('футбол') ? 'tshirt' : 'hoodie';
+            const itemType = selectedItem.includes('футбол') || selectedItem.includes('T-shirt') ? 'tshirt' : 'hoodie';
             selectedItem = selectedItemTranslations[lang][itemType];
         }
     });
@@ -1670,11 +1668,11 @@ function showOrderModal(itemLowercase) {
     
     // Определяем текущий язык
     const currentLang = document.querySelector('.lang-btn.active').getAttribute('data-lang');
-    const itemType = itemLowercase.includes('футбол') ? 'tshirt' : 'hoodie';
+    const itemType = itemLowercase.includes('футбол') || itemLowercase.includes('T-shirt') ? 'tshirt' : 'hoodie';
     
     // Устанавливаем заголовок на нужном языке
     const modalTitle = currentLang === 'ua' 
-        ? `Замовити ${itemLowercase}`
+        ? `Замовити ${selectedItemTranslations.ua[itemType]}`
         : `Order ${selectedItemTranslations.en[itemType]}`;
     
     document.getElementById('orderTitle').textContent = modalTitle;
@@ -1682,13 +1680,28 @@ function showOrderModal(itemLowercase) {
     modal.setAttribute('aria-hidden', 'false');
 }
 
+function closeModal() {
+    const modal = document.getElementById('orderModal');
+    modal.classList.remove('show');
+    modal.setAttribute('aria-hidden', 'true');
+}
+
+function showToast(text, ms = 3000) {
+    const toast = document.getElementById('toast');
+    toast.textContent = text;
+    toast.style.display = 'block';
+    setTimeout(() => {
+        toast.style.display = 'none';
+    }, ms);
+}
+
 // Обновленные обработчики кнопок в модальном окне
 document.getElementById('instagramBtn').addEventListener('click', async () => {
     const currentLang = document.querySelector('.lang-btn.active').getAttribute('data-lang');
-    const itemType = selectedItem.includes('футбол') ? 'tshirt' : 'hoodie';
+    const itemType = selectedItem.includes('футбол') || selectedItem.includes('T-shirt') ? 'tshirt' : 'hoodie';
     
     const message = currentLang === 'ua' 
-        ? `Привіт! Хочу замовити у тебе ${selectedItem}.`
+        ? `Привіт! Хочу замовити у тебе ${selectedItemTranslations.ua[itemType]}.`
         : `Hi! I want to order ${selectedItemTranslations.en[itemType]}.`;
     
     try {
@@ -1720,19 +1733,121 @@ document.getElementById('instagramBtn').addEventListener('click', async () => {
 
 document.getElementById('telegramBtn').addEventListener('click', () => {
     const currentLang = document.querySelector('.lang-btn.active').getAttribute('data-lang');
-    const itemType = selectedItem.includes('футбол') ? 'tshirt' : 'hoodie';
+    const itemType = selectedItem.includes('футбол') || selectedItem.includes('T-shirt') ? 'tshirt' : 'hoodie';
     
     const message = currentLang === 'ua' 
-        ? `Привіт! Хочу замовити у тебе ${selectedItem}.`
+        ? `Привіт! Хочу замовити у тебе ${selectedItemTranslations.ua[itemType]}.`
         : `Hi! I want to order ${selectedItemTranslations.en[itemType]}.`;
     
     window.open(`https://t.me/markeliy047?text=${encodeURIComponent(message)}`, '_blank');
     closeModal();
 });
 
-// Остальной ваш JavaScript код остается без изменений
-</script>
+// ---- FAQ аккордеон ----
+document.querySelectorAll('.faq-question').forEach(button => {
+    button.addEventListener('click', () => {
+        const item = button.parentElement;
+        const answer = item.querySelector('.faq-answer');
+        const isOpen = button.classList.contains('active');
 
+        // Закрываем все открытые элементы
+        document.querySelectorAll('.faq-question').forEach(btn => {
+            btn.classList.remove('active');
+            btn.nextElementSibling.style.maxHeight = null;
+        });
+
+        // Открываем текущий, если он был закрыт
+        if (!isOpen) {
+            button.classList.add('active');
+            answer.style.maxHeight = answer.scrollHeight + 'px';
+        }
+    });
+});
+
+// ---- Падающие блики ----
+function createGlitter() {
+    const glitter = document.getElementById('glitter');
+    const count = 50;
+    
+    for (let i = 0; i < count; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('glitter-particle');
+        
+        // Случайные параметры
+        const size = Math.random() * 4 + 2;
+        const posX = Math.random() * window.innerWidth;
+        const delay = Math.random() * 10;
+        const duration = Math.random() * 10 + 5;
+        const opacity = Math.random() * 0.5 + 0.3;
+        
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${posX}px`;
+        particle.style.animationDelay = `${delay}s`;
+        particle.style.animationDuration = `${duration}s`;
+        particle.style.opacity = opacity;
+        
+        glitter.appendChild(particle);
+    }
+}
+
+// ---- Обратный отсчет ----
+function updateCountdown() {
+    const dropDate = new Date('June 1, 2026 00:00:00').getTime();
+    const now = new Date().getTime();
+    const diff = dropDate - now;
+    
+    const days = Math.max(0, Math.floor(diff / (1000 * 60 * 60 * 24)));
+    const hours = Math.max(0, Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
+    const minutes = Math.max(0, Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)));
+    const seconds = Math.max(0, Math.floor((diff % (1000 * 60)) / 1000));
+    
+    document.getElementById('days').textContent = days.toString().padStart(2, '0');
+    document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+    document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+    document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+}
+
+// ---- 3D-эффект для товаров ----
+function initProductHover() {
+    document.querySelectorAll('.product').forEach(item => {
+        item.addEventListener('mousemove', (e) => {
+            const x = e.clientX - item.getBoundingClientRect().left;
+            const y = e.clientY - item.getBoundingClientRect().top;
+            
+            item.style.transform = `perspective(1000px) rotateX(${(y - 125) / 20}deg) rotateY(${(x - 125) / -20}deg)`;
+        });
+        
+        item.addEventListener('mouseleave', () => {
+            item.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+        });
+    });
+}
+
+// ---- Инициализация ----
+window.addEventListener('load', () => {
+    createGlitter();
+    updateCountdown();
+    initProductHover();
+    setInterval(updateCountdown, 1000);
+    translateSite('ua'); // Устанавливаем украинский язык по умолчанию
+});
+
+// Закрытие модалки по клику вне содержимого
+window.addEventListener('click', (e) => {
+    const modal = document.getElementById('orderModal');
+    if (modal.classList.contains('show') && e.target === modal) {
+        closeModal();
+    }
+});
+
+// Закрытие модалки по Esc
+window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        closeModal();
+    }
+});
+</script>
 </body>
 
 </html>
