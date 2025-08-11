@@ -1313,29 +1313,6 @@ if (document.readyState === 'complete' || document.readyState === 'interactive')
 // extra-js-030
 
 /* ===== end PART 3 ===== */
-
-    </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/countup.js/2.6.2/countUp.min.js">
-</script>
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const hoodieCounter = new CountUp('hoodieCount', 470, { duration: 3 });
-    const gangCounter = new CountUp('gangCount', 1250, { duration: 3 });
-
-    let triggered = false;
-    window.addEventListener('scroll', function () {
-      const explosionSection = document.querySelector('.explosion');
-      const sectionPos = explosionSection.getBoundingClientRect().top;
-      const screenHeight = window.innerHeight;
-
-      if (!triggered && sectionPos < screenHeight - 50) {
-        hoodieCounter.start();
-        gangCounter.start();
-        triggered = true;
-      }
-    });
-  });
-<script>
 // Полный словарь переводов
 const translations = {
     ua: {
@@ -1636,7 +1613,12 @@ window.addEventListener('load', () => {
     updateCountdown();
     initProductHover();
     setInterval(updateCountdown, 1000);
-    translateSite('ua'); // Устанавливаем украинский язык по умолчанию
+    translateSite('ua'); 
+
+ document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.getAttribute('data-lang') === 'ua') btn.classList.add('active');
+    });
 });
 
 // Закрытие модалки по клику вне содержимого
@@ -1654,6 +1636,27 @@ window.addEventListener('keydown', (e) => {
     }
 });
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/countup.js/2.6.2/countUp.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const hoodieCounter = new CountUp('hoodieCount', 470, { duration: 3 });
+    const gangCounter = new CountUp('gangCount', 1250, { duration: 3 });
+
+    let triggered = false;
+    window.addEventListener('scroll', function () {
+      const explosionSection = document.querySelector('.explosion');
+      const sectionPos = explosionSection.getBoundingClientRect().top;
+      const screenHeight = window.innerHeight;
+
+      if (!triggered && sectionPos < screenHeight - 50) {
+        hoodieCounter.start();
+        gangCounter.start();
+        triggered = true;
+      }
+    });
+  });
+</script>
+
 </body>
 
 </html>
